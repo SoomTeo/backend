@@ -125,17 +125,10 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   nickname: 'nickname',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.SurveyScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
   age: 'age',
   gender: 'gender',
-  answers: 'answers',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.MissionScalarFieldEnum = {
@@ -220,10 +213,16 @@ exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 exports.Prisma.UserOrderByRelevanceFieldEnum = {
   email: 'email',
   password: 'password',
-  nickname: 'nickname'
+  nickname: 'nickname',
+  gender: 'gender'
 };
 
 exports.Prisma.JsonNullValueFilter = {
@@ -237,19 +236,10 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
-exports.Prisma.SurveyOrderByRelevanceFieldEnum = {
-  gender: 'gender'
-};
-
 exports.Prisma.MissionOrderByRelevanceFieldEnum = {
   title: 'title',
   description: 'description',
   verificationType: 'verificationType'
-};
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
 };
 
 exports.Prisma.MissionCompletionOrderByRelevanceFieldEnum = {
@@ -292,7 +282,6 @@ exports.MissionStatus = exports.$Enums.MissionStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Survey: 'Survey',
   Mission: 'Mission',
   MissionCompletion: 'MissionCompletion',
   MissionVerification: 'MissionVerification',

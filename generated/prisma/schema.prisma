@@ -13,6 +13,8 @@ model User {
   email         String                @unique
   password      String
   nickname      String
+  age           Int?
+  gender        String?
   createdAt     DateTime              @default(now())
   updatedAt     DateTime              @updatedAt
   badges        Badge[]
@@ -20,24 +22,10 @@ model User {
   friendOf      Friend[]              @relation("FriendOf")
   friends       Friend[]              @relation("UserFriends")
   missions      MissionCompletion[]
-  surveys       Survey[]
   surveyAnswers SurveyAnswer[]
   surveyResults SurveyResult[]
 
   @@map("user")
-}
-
-model Survey {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  age       Int
-  gender    String
-  answers   Json
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-
-  @@index([userId], map: "survey_userId_fkey")
-  @@map("survey")
 }
 
 model Mission {

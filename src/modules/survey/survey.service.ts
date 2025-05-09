@@ -11,10 +11,9 @@ export class SurveyService {
   }
 
   async saveProfile(userId: number, age: number, gender: string) {
-    const survey = await this.prisma.survey.findFirst({ where: { userId } });
-    if (!survey) throw new Error('설문이 존재하지 않습니다.');
-    return this.prisma.survey.update({
-      where: { id: survey.id },
+    // age, gender가 UserUpdateInput에 없다는 에러가 발생하면 prisma generate를 먼저 실행하세요.
+    return this.prisma.user.update({
+      where: { id: userId },
       data: { age, gender },
     });
   }

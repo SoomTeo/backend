@@ -19,11 +19,6 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
- * Model Survey
- * 
- */
-export type Survey = $Result.DefaultSelection<Prisma.$SurveyPayload>
-/**
  * Model Mission
  * 
  */
@@ -236,16 +231,6 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.survey`: Exposes CRUD operations for the **Survey** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Surveys
-    * const surveys = await prisma.survey.findMany()
-    * ```
-    */
-  get survey(): Prisma.SurveyDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.mission`: Exposes CRUD operations for the **Mission** model.
@@ -777,7 +762,6 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Survey: 'Survey',
     Mission: 'Mission',
     MissionCompletion: 'MissionCompletion',
     MissionVerification: 'MissionVerification',
@@ -805,7 +789,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "survey" | "mission" | "missionCompletion" | "missionVerification" | "badge" | "friend" | "dailyWeeklyProgress" | "surveyQuestion" | "surveyAnswer" | "surveyResult"
+      modelProps: "user" | "mission" | "missionCompletion" | "missionVerification" | "badge" | "friend" | "dailyWeeklyProgress" | "surveyQuestion" | "surveyAnswer" | "surveyResult"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -872,72 +856,6 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
-          }
-        }
-      }
-      Survey: {
-        payload: Prisma.$SurveyPayload<ExtArgs>
-        fields: Prisma.SurveyFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.SurveyFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SurveyPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.SurveyFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
-          }
-          findFirst: {
-            args: Prisma.SurveyFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SurveyPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.SurveyFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
-          }
-          findMany: {
-            args: Prisma.SurveyFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>[]
-          }
-          create: {
-            args: Prisma.SurveyCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
-          }
-          createMany: {
-            args: Prisma.SurveyCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.SurveyDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
-          }
-          update: {
-            args: Prisma.SurveyUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
-          }
-          deleteMany: {
-            args: Prisma.SurveyDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.SurveyUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.SurveyUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
-          }
-          aggregate: {
-            args: Prisma.SurveyAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSurvey>
-          }
-          groupBy: {
-            args: Prisma.SurveyGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SurveyGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.SurveyCountArgs<ExtArgs>
-            result: $Utils.Optional<SurveyCountAggregateOutputType> | number
           }
         }
       }
@@ -1620,7 +1538,6 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
-    survey?: SurveyOmit
     mission?: MissionOmit
     missionCompletion?: MissionCompletionOmit
     missionVerification?: MissionVerificationOmit
@@ -1729,7 +1646,6 @@ export namespace Prisma {
     friendOf: number
     friends: number
     missions: number
-    surveys: number
     surveyAnswers: number
     surveyResults: number
   }
@@ -1740,7 +1656,6 @@ export namespace Prisma {
     friendOf?: boolean | UserCountOutputTypeCountFriendOfArgs
     friends?: boolean | UserCountOutputTypeCountFriendsArgs
     missions?: boolean | UserCountOutputTypeCountMissionsArgs
-    surveys?: boolean | UserCountOutputTypeCountSurveysArgs
     surveyAnswers?: boolean | UserCountOutputTypeCountSurveyAnswersArgs
     surveyResults?: boolean | UserCountOutputTypeCountSurveyResultsArgs
   }
@@ -1789,13 +1704,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountMissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MissionCompletionWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountSurveysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SurveyWhereInput
   }
 
   /**
@@ -1924,10 +1832,12 @@ export namespace Prisma {
 
   export type UserAvgAggregateOutputType = {
     id: number | null
+    age: number | null
   }
 
   export type UserSumAggregateOutputType = {
     id: number | null
+    age: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -1935,6 +1845,8 @@ export namespace Prisma {
     email: string | null
     password: string | null
     nickname: string | null
+    age: number | null
+    gender: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1944,6 +1856,8 @@ export namespace Prisma {
     email: string | null
     password: string | null
     nickname: string | null
+    age: number | null
+    gender: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1953,6 +1867,8 @@ export namespace Prisma {
     email: number
     password: number
     nickname: number
+    age: number
+    gender: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1961,10 +1877,12 @@ export namespace Prisma {
 
   export type UserAvgAggregateInputType = {
     id?: true
+    age?: true
   }
 
   export type UserSumAggregateInputType = {
     id?: true
+    age?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -1972,6 +1890,8 @@ export namespace Prisma {
     email?: true
     password?: true
     nickname?: true
+    age?: true
+    gender?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1981,6 +1901,8 @@ export namespace Prisma {
     email?: true
     password?: true
     nickname?: true
+    age?: true
+    gender?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1990,6 +1912,8 @@ export namespace Prisma {
     email?: true
     password?: true
     nickname?: true
+    age?: true
+    gender?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2086,6 +2010,8 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age: number | null
+    gender: string | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -2114,6 +2040,8 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     nickname?: boolean
+    age?: boolean
+    gender?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     badges?: boolean | User$badgesArgs<ExtArgs>
@@ -2121,7 +2049,6 @@ export namespace Prisma {
     friendOf?: boolean | User$friendOfArgs<ExtArgs>
     friends?: boolean | User$friendsArgs<ExtArgs>
     missions?: boolean | User$missionsArgs<ExtArgs>
-    surveys?: boolean | User$surveysArgs<ExtArgs>
     surveyAnswers?: boolean | User$surveyAnswersArgs<ExtArgs>
     surveyResults?: boolean | User$surveyResultsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2134,18 +2061,19 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     nickname?: boolean
+    age?: boolean
+    gender?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "nickname" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "nickname" | "age" | "gender" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     badges?: boolean | User$badgesArgs<ExtArgs>
     dailyProgress?: boolean | User$dailyProgressArgs<ExtArgs>
     friendOf?: boolean | User$friendOfArgs<ExtArgs>
     friends?: boolean | User$friendsArgs<ExtArgs>
     missions?: boolean | User$missionsArgs<ExtArgs>
-    surveys?: boolean | User$surveysArgs<ExtArgs>
     surveyAnswers?: boolean | User$surveyAnswersArgs<ExtArgs>
     surveyResults?: boolean | User$surveyResultsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2159,7 +2087,6 @@ export namespace Prisma {
       friendOf: Prisma.$FriendPayload<ExtArgs>[]
       friends: Prisma.$FriendPayload<ExtArgs>[]
       missions: Prisma.$MissionCompletionPayload<ExtArgs>[]
-      surveys: Prisma.$SurveyPayload<ExtArgs>[]
       surveyAnswers: Prisma.$SurveyAnswerPayload<ExtArgs>[]
       surveyResults: Prisma.$SurveyResultPayload<ExtArgs>[]
     }
@@ -2168,6 +2095,8 @@ export namespace Prisma {
       email: string
       password: string
       nickname: string
+      age: number | null
+      gender: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2515,7 +2444,6 @@ export namespace Prisma {
     friendOf<T extends User$friendOfArgs<ExtArgs> = {}>(args?: Subset<T, User$friendOfArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     friends<T extends User$friendsArgs<ExtArgs> = {}>(args?: Subset<T, User$friendsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     missions<T extends User$missionsArgs<ExtArgs> = {}>(args?: Subset<T, User$missionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MissionCompletionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    surveys<T extends User$surveysArgs<ExtArgs> = {}>(args?: Subset<T, User$surveysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     surveyAnswers<T extends User$surveyAnswersArgs<ExtArgs> = {}>(args?: Subset<T, User$surveyAnswersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyAnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     surveyResults<T extends User$surveyResultsArgs<ExtArgs> = {}>(args?: Subset<T, User$surveyResultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -2551,6 +2479,8 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly nickname: FieldRef<"User", 'String'>
+    readonly age: FieldRef<"User", 'Int'>
+    readonly gender: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -3016,30 +2946,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.surveys
-   */
-  export type User$surveysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Survey
-     */
-    select?: SurveySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Survey
-     */
-    omit?: SurveyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SurveyInclude<ExtArgs> | null
-    where?: SurveyWhereInput
-    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
-    cursor?: SurveyWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
-  }
-
-  /**
    * User.surveyAnswers
    */
   export type User$surveyAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3103,984 +3009,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model Survey
-   */
-
-  export type AggregateSurvey = {
-    _count: SurveyCountAggregateOutputType | null
-    _avg: SurveyAvgAggregateOutputType | null
-    _sum: SurveySumAggregateOutputType | null
-    _min: SurveyMinAggregateOutputType | null
-    _max: SurveyMaxAggregateOutputType | null
-  }
-
-  export type SurveyAvgAggregateOutputType = {
-    id: number | null
-    userId: number | null
-    age: number | null
-  }
-
-  export type SurveySumAggregateOutputType = {
-    id: number | null
-    userId: number | null
-    age: number | null
-  }
-
-  export type SurveyMinAggregateOutputType = {
-    id: number | null
-    userId: number | null
-    age: number | null
-    gender: string | null
-    createdAt: Date | null
-  }
-
-  export type SurveyMaxAggregateOutputType = {
-    id: number | null
-    userId: number | null
-    age: number | null
-    gender: string | null
-    createdAt: Date | null
-  }
-
-  export type SurveyCountAggregateOutputType = {
-    id: number
-    userId: number
-    age: number
-    gender: number
-    answers: number
-    createdAt: number
-    _all: number
-  }
-
-
-  export type SurveyAvgAggregateInputType = {
-    id?: true
-    userId?: true
-    age?: true
-  }
-
-  export type SurveySumAggregateInputType = {
-    id?: true
-    userId?: true
-    age?: true
-  }
-
-  export type SurveyMinAggregateInputType = {
-    id?: true
-    userId?: true
-    age?: true
-    gender?: true
-    createdAt?: true
-  }
-
-  export type SurveyMaxAggregateInputType = {
-    id?: true
-    userId?: true
-    age?: true
-    gender?: true
-    createdAt?: true
-  }
-
-  export type SurveyCountAggregateInputType = {
-    id?: true
-    userId?: true
-    age?: true
-    gender?: true
-    answers?: true
-    createdAt?: true
-    _all?: true
-  }
-
-  export type SurveyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Survey to aggregate.
-     */
-    where?: SurveyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Surveys to fetch.
-     */
-    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: SurveyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Surveys from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Surveys.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Surveys
-    **/
-    _count?: true | SurveyCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: SurveyAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SurveySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SurveyMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SurveyMaxAggregateInputType
-  }
-
-  export type GetSurveyAggregateType<T extends SurveyAggregateArgs> = {
-        [P in keyof T & keyof AggregateSurvey]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSurvey[P]>
-      : GetScalarType<T[P], AggregateSurvey[P]>
-  }
-
-
-
-
-  export type SurveyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SurveyWhereInput
-    orderBy?: SurveyOrderByWithAggregationInput | SurveyOrderByWithAggregationInput[]
-    by: SurveyScalarFieldEnum[] | SurveyScalarFieldEnum
-    having?: SurveyScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SurveyCountAggregateInputType | true
-    _avg?: SurveyAvgAggregateInputType
-    _sum?: SurveySumAggregateInputType
-    _min?: SurveyMinAggregateInputType
-    _max?: SurveyMaxAggregateInputType
-  }
-
-  export type SurveyGroupByOutputType = {
-    id: number
-    userId: number
-    age: number
-    gender: string
-    answers: JsonValue
-    createdAt: Date
-    _count: SurveyCountAggregateOutputType | null
-    _avg: SurveyAvgAggregateOutputType | null
-    _sum: SurveySumAggregateOutputType | null
-    _min: SurveyMinAggregateOutputType | null
-    _max: SurveyMaxAggregateOutputType | null
-  }
-
-  type GetSurveyGroupByPayload<T extends SurveyGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<SurveyGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SurveyGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SurveyGroupByOutputType[P]>
-            : GetScalarType<T[P], SurveyGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type SurveySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    age?: boolean
-    gender?: boolean
-    answers?: boolean
-    createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["survey"]>
-
-
-
-  export type SurveySelectScalar = {
-    id?: boolean
-    userId?: boolean
-    age?: boolean
-    gender?: boolean
-    answers?: boolean
-    createdAt?: boolean
-  }
-
-  export type SurveyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "age" | "gender" | "answers" | "createdAt", ExtArgs["result"]["survey"]>
-  export type SurveyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $SurveyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Survey"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      userId: number
-      age: number
-      gender: string
-      answers: Prisma.JsonValue
-      createdAt: Date
-    }, ExtArgs["result"]["survey"]>
-    composites: {}
-  }
-
-  type SurveyGetPayload<S extends boolean | null | undefined | SurveyDefaultArgs> = $Result.GetResult<Prisma.$SurveyPayload, S>
-
-  type SurveyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<SurveyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: SurveyCountAggregateInputType | true
-    }
-
-  export interface SurveyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Survey'], meta: { name: 'Survey' } }
-    /**
-     * Find zero or one Survey that matches the filter.
-     * @param {SurveyFindUniqueArgs} args - Arguments to find a Survey
-     * @example
-     * // Get one Survey
-     * const survey = await prisma.survey.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends SurveyFindUniqueArgs>(args: SelectSubset<T, SurveyFindUniqueArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Survey that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {SurveyFindUniqueOrThrowArgs} args - Arguments to find a Survey
-     * @example
-     * // Get one Survey
-     * const survey = await prisma.survey.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends SurveyFindUniqueOrThrowArgs>(args: SelectSubset<T, SurveyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Survey that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SurveyFindFirstArgs} args - Arguments to find a Survey
-     * @example
-     * // Get one Survey
-     * const survey = await prisma.survey.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends SurveyFindFirstArgs>(args?: SelectSubset<T, SurveyFindFirstArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Survey that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SurveyFindFirstOrThrowArgs} args - Arguments to find a Survey
-     * @example
-     * // Get one Survey
-     * const survey = await prisma.survey.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends SurveyFindFirstOrThrowArgs>(args?: SelectSubset<T, SurveyFindFirstOrThrowArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Surveys that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SurveyFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Surveys
-     * const surveys = await prisma.survey.findMany()
-     * 
-     * // Get first 10 Surveys
-     * const surveys = await prisma.survey.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const surveyWithIdOnly = await prisma.survey.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends SurveyFindManyArgs>(args?: SelectSubset<T, SurveyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Survey.
-     * @param {SurveyCreateArgs} args - Arguments to create a Survey.
-     * @example
-     * // Create one Survey
-     * const Survey = await prisma.survey.create({
-     *   data: {
-     *     // ... data to create a Survey
-     *   }
-     * })
-     * 
-     */
-    create<T extends SurveyCreateArgs>(args: SelectSubset<T, SurveyCreateArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Surveys.
-     * @param {SurveyCreateManyArgs} args - Arguments to create many Surveys.
-     * @example
-     * // Create many Surveys
-     * const survey = await prisma.survey.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends SurveyCreateManyArgs>(args?: SelectSubset<T, SurveyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Survey.
-     * @param {SurveyDeleteArgs} args - Arguments to delete one Survey.
-     * @example
-     * // Delete one Survey
-     * const Survey = await prisma.survey.delete({
-     *   where: {
-     *     // ... filter to delete one Survey
-     *   }
-     * })
-     * 
-     */
-    delete<T extends SurveyDeleteArgs>(args: SelectSubset<T, SurveyDeleteArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Survey.
-     * @param {SurveyUpdateArgs} args - Arguments to update one Survey.
-     * @example
-     * // Update one Survey
-     * const survey = await prisma.survey.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends SurveyUpdateArgs>(args: SelectSubset<T, SurveyUpdateArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Surveys.
-     * @param {SurveyDeleteManyArgs} args - Arguments to filter Surveys to delete.
-     * @example
-     * // Delete a few Surveys
-     * const { count } = await prisma.survey.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends SurveyDeleteManyArgs>(args?: SelectSubset<T, SurveyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Surveys.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SurveyUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Surveys
-     * const survey = await prisma.survey.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends SurveyUpdateManyArgs>(args: SelectSubset<T, SurveyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Survey.
-     * @param {SurveyUpsertArgs} args - Arguments to update or create a Survey.
-     * @example
-     * // Update or create a Survey
-     * const survey = await prisma.survey.upsert({
-     *   create: {
-     *     // ... data to create a Survey
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Survey we want to update
-     *   }
-     * })
-     */
-    upsert<T extends SurveyUpsertArgs>(args: SelectSubset<T, SurveyUpsertArgs<ExtArgs>>): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Surveys.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SurveyCountArgs} args - Arguments to filter Surveys to count.
-     * @example
-     * // Count the number of Surveys
-     * const count = await prisma.survey.count({
-     *   where: {
-     *     // ... the filter for the Surveys we want to count
-     *   }
-     * })
-    **/
-    count<T extends SurveyCountArgs>(
-      args?: Subset<T, SurveyCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SurveyCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Survey.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SurveyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SurveyAggregateArgs>(args: Subset<T, SurveyAggregateArgs>): Prisma.PrismaPromise<GetSurveyAggregateType<T>>
-
-    /**
-     * Group by Survey.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SurveyGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends SurveyGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SurveyGroupByArgs['orderBy'] }
-        : { orderBy?: SurveyGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, SurveyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSurveyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Survey model
-   */
-  readonly fields: SurveyFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Survey.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__SurveyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Survey model
-   */
-  interface SurveyFieldRefs {
-    readonly id: FieldRef<"Survey", 'Int'>
-    readonly userId: FieldRef<"Survey", 'Int'>
-    readonly age: FieldRef<"Survey", 'Int'>
-    readonly gender: FieldRef<"Survey", 'String'>
-    readonly answers: FieldRef<"Survey", 'Json'>
-    readonly createdAt: FieldRef<"Survey", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Survey findUnique
-   */
-  export type SurveyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Survey
-     */
-    select?: SurveySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Survey
-     */
-    omit?: SurveyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SurveyInclude<ExtArgs> | null
-    /**
-     * Filter, which Survey to fetch.
-     */
-    where: SurveyWhereUniqueInput
-  }
-
-  /**
-   * Survey findUniqueOrThrow
-   */
-  export type SurveyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Survey
-     */
-    select?: SurveySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Survey
-     */
-    omit?: SurveyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SurveyInclude<ExtArgs> | null
-    /**
-     * Filter, which Survey to fetch.
-     */
-    where: SurveyWhereUniqueInput
-  }
-
-  /**
-   * Survey findFirst
-   */
-  export type SurveyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Survey
-     */
-    select?: SurveySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Survey
-     */
-    omit?: SurveyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SurveyInclude<ExtArgs> | null
-    /**
-     * Filter, which Survey to fetch.
-     */
-    where?: SurveyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Surveys to fetch.
-     */
-    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Surveys.
-     */
-    cursor?: SurveyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Surveys from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Surveys.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Surveys.
-     */
-    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
-  }
-
-  /**
-   * Survey findFirstOrThrow
-   */
-  export type SurveyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Survey
-     */
-    select?: SurveySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Survey
-     */
-    omit?: SurveyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SurveyInclude<ExtArgs> | null
-    /**
-     * Filter, which Survey to fetch.
-     */
-    where?: SurveyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Surveys to fetch.
-     */
-    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Surveys.
-     */
-    cursor?: SurveyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Surveys from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Surveys.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Surveys.
-     */
-    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
-  }
-
-  /**
-   * Survey findMany
-   */
-  export type SurveyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Survey
-     */
-    select?: SurveySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Survey
-     */
-    omit?: SurveyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SurveyInclude<ExtArgs> | null
-    /**
-     * Filter, which Surveys to fetch.
-     */
-    where?: SurveyWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Surveys to fetch.
-     */
-    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Surveys.
-     */
-    cursor?: SurveyWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Surveys from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Surveys.
-     */
-    skip?: number
-    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
-  }
-
-  /**
-   * Survey create
-   */
-  export type SurveyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Survey
-     */
-    select?: SurveySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Survey
-     */
-    omit?: SurveyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SurveyInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Survey.
-     */
-    data: XOR<SurveyCreateInput, SurveyUncheckedCreateInput>
-  }
-
-  /**
-   * Survey createMany
-   */
-  export type SurveyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Surveys.
-     */
-    data: SurveyCreateManyInput | SurveyCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Survey update
-   */
-  export type SurveyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Survey
-     */
-    select?: SurveySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Survey
-     */
-    omit?: SurveyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SurveyInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Survey.
-     */
-    data: XOR<SurveyUpdateInput, SurveyUncheckedUpdateInput>
-    /**
-     * Choose, which Survey to update.
-     */
-    where: SurveyWhereUniqueInput
-  }
-
-  /**
-   * Survey updateMany
-   */
-  export type SurveyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Surveys.
-     */
-    data: XOR<SurveyUpdateManyMutationInput, SurveyUncheckedUpdateManyInput>
-    /**
-     * Filter which Surveys to update
-     */
-    where?: SurveyWhereInput
-    /**
-     * Limit how many Surveys to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Survey upsert
-   */
-  export type SurveyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Survey
-     */
-    select?: SurveySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Survey
-     */
-    omit?: SurveyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SurveyInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Survey to update in case it exists.
-     */
-    where: SurveyWhereUniqueInput
-    /**
-     * In case the Survey found by the `where` argument doesn't exist, create a new Survey with this data.
-     */
-    create: XOR<SurveyCreateInput, SurveyUncheckedCreateInput>
-    /**
-     * In case the Survey was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<SurveyUpdateInput, SurveyUncheckedUpdateInput>
-  }
-
-  /**
-   * Survey delete
-   */
-  export type SurveyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Survey
-     */
-    select?: SurveySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Survey
-     */
-    omit?: SurveyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SurveyInclude<ExtArgs> | null
-    /**
-     * Filter which Survey to delete.
-     */
-    where: SurveyWhereUniqueInput
-  }
-
-  /**
-   * Survey deleteMany
-   */
-  export type SurveyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Surveys to delete
-     */
-    where?: SurveyWhereInput
-    /**
-     * Limit how many Surveys to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Survey without action
-   */
-  export type SurveyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Survey
-     */
-    select?: SurveySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Survey
-     */
-    omit?: SurveyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SurveyInclude<ExtArgs> | null
   }
 
 
@@ -12911,23 +11839,13 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     nickname: 'nickname',
+    age: 'age',
+    gender: 'gender',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-  export const SurveyScalarFieldEnum: {
-    id: 'id',
-    userId: 'userId',
-    age: 'age',
-    gender: 'gender',
-    answers: 'answers',
-    createdAt: 'createdAt'
-  };
-
-  export type SurveyScalarFieldEnum = (typeof SurveyScalarFieldEnum)[keyof typeof SurveyScalarFieldEnum]
 
 
   export const MissionScalarFieldEnum: {
@@ -13045,10 +11963,19 @@ export namespace Prisma {
   export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   export const UserOrderByRelevanceFieldEnum: {
     email: 'email',
     password: 'password',
-    nickname: 'nickname'
+    nickname: 'nickname',
+    gender: 'gender'
   };
 
   export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
@@ -13071,13 +11998,6 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
-  export const SurveyOrderByRelevanceFieldEnum: {
-    gender: 'gender'
-  };
-
-  export type SurveyOrderByRelevanceFieldEnum = (typeof SurveyOrderByRelevanceFieldEnum)[keyof typeof SurveyOrderByRelevanceFieldEnum]
-
-
   export const MissionOrderByRelevanceFieldEnum: {
     title: 'title',
     description: 'description',
@@ -13085,14 +12005,6 @@ export namespace Prisma {
   };
 
   export type MissionOrderByRelevanceFieldEnum = (typeof MissionOrderByRelevanceFieldEnum)[keyof typeof MissionOrderByRelevanceFieldEnum]
-
-
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   export const MissionCompletionOrderByRelevanceFieldEnum: {
@@ -13165,6 +12077,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'MissionType'
+   */
+  export type EnumMissionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MissionType'>
+    
+
+
+  /**
    * Reference to a field of type 'Json'
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -13175,13 +12094,6 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
-   * Reference to a field of type 'MissionType'
-   */
-  export type EnumMissionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MissionType'>
     
 
 
@@ -13210,6 +12122,8 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     nickname?: StringFilter<"User"> | string
+    age?: IntNullableFilter<"User"> | number | null
+    gender?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     badges?: BadgeListRelationFilter
@@ -13217,7 +12131,6 @@ export namespace Prisma {
     friendOf?: FriendListRelationFilter
     friends?: FriendListRelationFilter
     missions?: MissionCompletionListRelationFilter
-    surveys?: SurveyListRelationFilter
     surveyAnswers?: SurveyAnswerListRelationFilter
     surveyResults?: SurveyResultListRelationFilter
   }
@@ -13227,6 +12140,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     nickname?: SortOrder
+    age?: SortOrderInput | SortOrder
+    gender?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     badges?: BadgeOrderByRelationAggregateInput
@@ -13234,7 +12149,6 @@ export namespace Prisma {
     friendOf?: FriendOrderByRelationAggregateInput
     friends?: FriendOrderByRelationAggregateInput
     missions?: MissionCompletionOrderByRelationAggregateInput
-    surveys?: SurveyOrderByRelationAggregateInput
     surveyAnswers?: SurveyAnswerOrderByRelationAggregateInput
     surveyResults?: SurveyResultOrderByRelationAggregateInput
     _relevance?: UserOrderByRelevanceInput
@@ -13248,6 +12162,8 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     nickname?: StringFilter<"User"> | string
+    age?: IntNullableFilter<"User"> | number | null
+    gender?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     badges?: BadgeListRelationFilter
@@ -13255,7 +12171,6 @@ export namespace Prisma {
     friendOf?: FriendListRelationFilter
     friends?: FriendListRelationFilter
     missions?: MissionCompletionListRelationFilter
-    surveys?: SurveyListRelationFilter
     surveyAnswers?: SurveyAnswerListRelationFilter
     surveyResults?: SurveyResultListRelationFilter
   }, "id" | "email">
@@ -13265,6 +12180,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     nickname?: SortOrder
+    age?: SortOrderInput | SortOrder
+    gender?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -13282,71 +12199,10 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     nickname?: StringWithAggregatesFilter<"User"> | string
+    age?: IntNullableWithAggregatesFilter<"User"> | number | null
+    gender?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
-  }
-
-  export type SurveyWhereInput = {
-    AND?: SurveyWhereInput | SurveyWhereInput[]
-    OR?: SurveyWhereInput[]
-    NOT?: SurveyWhereInput | SurveyWhereInput[]
-    id?: IntFilter<"Survey"> | number
-    userId?: IntFilter<"Survey"> | number
-    age?: IntFilter<"Survey"> | number
-    gender?: StringFilter<"Survey"> | string
-    answers?: JsonFilter<"Survey">
-    createdAt?: DateTimeFilter<"Survey"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type SurveyOrderByWithRelationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    age?: SortOrder
-    gender?: SortOrder
-    answers?: SortOrder
-    createdAt?: SortOrder
-    user?: UserOrderByWithRelationInput
-    _relevance?: SurveyOrderByRelevanceInput
-  }
-
-  export type SurveyWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: SurveyWhereInput | SurveyWhereInput[]
-    OR?: SurveyWhereInput[]
-    NOT?: SurveyWhereInput | SurveyWhereInput[]
-    userId?: IntFilter<"Survey"> | number
-    age?: IntFilter<"Survey"> | number
-    gender?: StringFilter<"Survey"> | string
-    answers?: JsonFilter<"Survey">
-    createdAt?: DateTimeFilter<"Survey"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
-
-  export type SurveyOrderByWithAggregationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    age?: SortOrder
-    gender?: SortOrder
-    answers?: SortOrder
-    createdAt?: SortOrder
-    _count?: SurveyCountOrderByAggregateInput
-    _avg?: SurveyAvgOrderByAggregateInput
-    _max?: SurveyMaxOrderByAggregateInput
-    _min?: SurveyMinOrderByAggregateInput
-    _sum?: SurveySumOrderByAggregateInput
-  }
-
-  export type SurveyScalarWhereWithAggregatesInput = {
-    AND?: SurveyScalarWhereWithAggregatesInput | SurveyScalarWhereWithAggregatesInput[]
-    OR?: SurveyScalarWhereWithAggregatesInput[]
-    NOT?: SurveyScalarWhereWithAggregatesInput | SurveyScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Survey"> | number
-    userId?: IntWithAggregatesFilter<"Survey"> | number
-    age?: IntWithAggregatesFilter<"Survey"> | number
-    gender?: StringWithAggregatesFilter<"Survey"> | string
-    answers?: JsonWithAggregatesFilter<"Survey">
-    createdAt?: DateTimeWithAggregatesFilter<"Survey"> | Date | string
   }
 
   export type MissionWhereInput = {
@@ -13891,6 +12747,8 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeCreateNestedManyWithoutUserInput
@@ -13898,7 +12756,6 @@ export namespace Prisma {
     friendOf?: FriendCreateNestedManyWithoutFriendInput
     friends?: FriendCreateNestedManyWithoutUserInput
     missions?: MissionCompletionCreateNestedManyWithoutUserInput
-    surveys?: SurveyCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultCreateNestedManyWithoutUserInput
   }
@@ -13908,6 +12765,8 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
@@ -13915,7 +12774,6 @@ export namespace Prisma {
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerUncheckedCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultUncheckedCreateNestedManyWithoutUserInput
   }
@@ -13924,6 +12782,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUpdateManyWithoutUserNestedInput
@@ -13931,7 +12791,6 @@ export namespace Prisma {
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
     friends?: FriendUpdateManyWithoutUserNestedInput
     missions?: MissionCompletionUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUpdateManyWithoutUserNestedInput
   }
@@ -13941,6 +12800,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
@@ -13948,7 +12809,6 @@ export namespace Prisma {
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUncheckedUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -13958,6 +12818,8 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13966,6 +12828,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13975,67 +12839,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SurveyCreateInput = {
-    age: number
-    gender: string
-    answers: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    user: UserCreateNestedOneWithoutSurveysInput
-  }
-
-  export type SurveyUncheckedCreateInput = {
-    id?: number
-    userId: number
-    age: number
-    gender: string
-    answers: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-  }
-
-  export type SurveyUpdateInput = {
-    age?: IntFieldUpdateOperationsInput | number
-    gender?: StringFieldUpdateOperationsInput | string
-    answers?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutSurveysNestedInput
-  }
-
-  export type SurveyUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    age?: IntFieldUpdateOperationsInput | number
-    gender?: StringFieldUpdateOperationsInput | string
-    answers?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SurveyCreateManyInput = {
-    id?: number
-    userId: number
-    age: number
-    gender: string
-    answers: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-  }
-
-  export type SurveyUpdateManyMutationInput = {
-    age?: IntFieldUpdateOperationsInput | number
-    gender?: StringFieldUpdateOperationsInput | string
-    answers?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SurveyUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    age?: IntFieldUpdateOperationsInput | number
-    gender?: StringFieldUpdateOperationsInput | string
-    answers?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MissionCreateInput = {
@@ -14550,6 +13357,32 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -14585,12 +13418,6 @@ export namespace Prisma {
     none?: MissionCompletionWhereInput
   }
 
-  export type SurveyListRelationFilter = {
-    every?: SurveyWhereInput
-    some?: SurveyWhereInput
-    none?: SurveyWhereInput
-  }
-
   export type SurveyAnswerListRelationFilter = {
     every?: SurveyAnswerWhereInput
     some?: SurveyAnswerWhereInput
@@ -14601,6 +13428,11 @@ export namespace Prisma {
     every?: SurveyResultWhereInput
     some?: SurveyResultWhereInput
     none?: SurveyResultWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type BadgeOrderByRelationAggregateInput = {
@@ -14616,10 +13448,6 @@ export namespace Prisma {
   }
 
   export type MissionCompletionOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type SurveyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14642,12 +13470,15 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     nickname?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
     id?: SortOrder
+    age?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -14655,6 +13486,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     nickname?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14664,12 +13497,15 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     nickname?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
     id?: SortOrder
+    age?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -14706,6 +13542,40 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -14718,6 +13588,13 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type EnumMissionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MissionType | EnumMissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MissionType[]
+    notIn?: $Enums.MissionType[]
+    not?: NestedEnumMissionTypeFilter<$PrismaModel> | $Enums.MissionType
   }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -14741,87 +13618,6 @@ export namespace Prisma {
     gt?: InputJsonValue
     gte?: InputJsonValue
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
-  export type SurveyOrderByRelevanceInput = {
-    fields: SurveyOrderByRelevanceFieldEnum | SurveyOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type SurveyCountOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    age?: SortOrder
-    gender?: SortOrder
-    answers?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type SurveyAvgOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    age?: SortOrder
-  }
-
-  export type SurveyMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    age?: SortOrder
-    gender?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type SurveyMinOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    age?: SortOrder
-    gender?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type SurveySumOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    age?: SortOrder
-  }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue
-    lte?: InputJsonValue
-    gt?: InputJsonValue
-    gte?: InputJsonValue
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
-  }
-
-  export type EnumMissionTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.MissionType | EnumMissionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.MissionType[]
-    notIn?: $Enums.MissionType[]
-    not?: NestedEnumMissionTypeFilter<$PrismaModel> | $Enums.MissionType
   }
 
   export type MissionOrderByRelevanceInput = {
@@ -14875,6 +13671,32 @@ export namespace Prisma {
     _min?: NestedEnumMissionTypeFilter<$PrismaModel>
     _max?: NestedEnumMissionTypeFilter<$PrismaModel>
   }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
 
   export type EnumMissionStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.MissionStatus | EnumMissionStatusFieldRefInput<$PrismaModel>
@@ -14883,35 +13705,20 @@ export namespace Prisma {
     not?: NestedEnumMissionStatusFilter<$PrismaModel> | $Enums.MissionStatus
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type MissionScalarRelationFilter = {
     is?: MissionWhereInput
     isNot?: MissionWhereInput
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type MissionVerificationListRelationFilter = {
     every?: MissionVerificationWhereInput
     some?: MissionVerificationWhereInput
     none?: MissionVerificationWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type MissionVerificationOrderByRelationAggregateInput = {
@@ -14972,24 +13779,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMissionStatusFilter<$PrismaModel>
     _max?: NestedEnumMissionStatusFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type MissionCompletionScalarRelationFilter = {
@@ -15305,13 +14094,6 @@ export namespace Prisma {
     connect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
   }
 
-  export type SurveyCreateNestedManyWithoutUserInput = {
-    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
-    createMany?: SurveyCreateManyUserInputEnvelope
-    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-  }
-
   export type SurveyAnswerCreateNestedManyWithoutUserInput = {
     create?: XOR<SurveyAnswerCreateWithoutUserInput, SurveyAnswerUncheckedCreateWithoutUserInput> | SurveyAnswerCreateWithoutUserInput[] | SurveyAnswerUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SurveyAnswerCreateOrConnectWithoutUserInput | SurveyAnswerCreateOrConnectWithoutUserInput[]
@@ -15361,13 +14143,6 @@ export namespace Prisma {
     connect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
   }
 
-  export type SurveyUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
-    createMany?: SurveyCreateManyUserInputEnvelope
-    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-  }
-
   export type SurveyAnswerUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SurveyAnswerCreateWithoutUserInput, SurveyAnswerUncheckedCreateWithoutUserInput> | SurveyAnswerCreateWithoutUserInput[] | SurveyAnswerUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SurveyAnswerCreateOrConnectWithoutUserInput | SurveyAnswerCreateOrConnectWithoutUserInput[]
@@ -15384,6 +14159,18 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -15458,20 +14245,6 @@ export namespace Prisma {
     update?: MissionCompletionUpdateWithWhereUniqueWithoutUserInput | MissionCompletionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: MissionCompletionUpdateManyWithWhereWithoutUserInput | MissionCompletionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: MissionCompletionScalarWhereInput | MissionCompletionScalarWhereInput[]
-  }
-
-  export type SurveyUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
-    upsert?: SurveyUpsertWithWhereUniqueWithoutUserInput | SurveyUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SurveyCreateManyUserInputEnvelope
-    set?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-    disconnect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-    delete?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-    update?: SurveyUpdateWithWhereUniqueWithoutUserInput | SurveyUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SurveyUpdateManyWithWhereWithoutUserInput | SurveyUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
   }
 
   export type SurveyAnswerUpdateManyWithoutUserNestedInput = {
@@ -15580,20 +14353,6 @@ export namespace Prisma {
     deleteMany?: MissionCompletionScalarWhereInput | MissionCompletionScalarWhereInput[]
   }
 
-  export type SurveyUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
-    upsert?: SurveyUpsertWithWhereUniqueWithoutUserInput | SurveyUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SurveyCreateManyUserInputEnvelope
-    set?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-    disconnect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-    delete?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-    update?: SurveyUpdateWithWhereUniqueWithoutUserInput | SurveyUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SurveyUpdateManyWithWhereWithoutUserInput | SurveyUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
-  }
-
   export type SurveyAnswerUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SurveyAnswerCreateWithoutUserInput, SurveyAnswerUncheckedCreateWithoutUserInput> | SurveyAnswerCreateWithoutUserInput[] | SurveyAnswerUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SurveyAnswerCreateOrConnectWithoutUserInput | SurveyAnswerCreateOrConnectWithoutUserInput[]
@@ -15620,20 +14379,6 @@ export namespace Prisma {
     update?: SurveyResultUpdateWithWhereUniqueWithoutUserInput | SurveyResultUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SurveyResultUpdateManyWithWhereWithoutUserInput | SurveyResultUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SurveyResultScalarWhereInput | SurveyResultScalarWhereInput[]
-  }
-
-  export type UserCreateNestedOneWithoutSurveysInput = {
-    create?: XOR<UserCreateWithoutSurveysInput, UserUncheckedCreateWithoutSurveysInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSurveysInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type UserUpdateOneRequiredWithoutSurveysNestedInput = {
-    create?: XOR<UserCreateWithoutSurveysInput, UserUncheckedCreateWithoutSurveysInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSurveysInput
-    upsert?: UserUpsertWithoutSurveysInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSurveysInput, UserUpdateWithoutSurveysInput>, UserUncheckedUpdateWithoutSurveysInput>
   }
 
   export type MissionCompletionCreateNestedManyWithoutMissionInput = {
@@ -15710,10 +14455,6 @@ export namespace Prisma {
 
   export type EnumMissionStatusFieldUpdateOperationsInput = {
     set?: $Enums.MissionStatus
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type MissionUpdateOneRequiredWithoutCompletionsNestedInput = {
@@ -15940,6 +14681,32 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -15996,6 +14763,51 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -16008,6 +14820,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMissionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MissionType | EnumMissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MissionType[]
+    notIn?: $Enums.MissionType[]
+    not?: NestedEnumMissionTypeFilter<$PrismaModel> | $Enums.MissionType
+  }
+
+  export type NestedEnumMissionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MissionType | EnumMissionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MissionType[]
+    notIn?: $Enums.MissionType[]
+    not?: NestedEnumMissionTypeWithAggregatesFilter<$PrismaModel> | $Enums.MissionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMissionTypeFilter<$PrismaModel>
+    _max?: NestedEnumMissionTypeFilter<$PrismaModel>
   }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -16033,43 +14862,11 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedEnumMissionTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.MissionType | EnumMissionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.MissionType[]
-    notIn?: $Enums.MissionType[]
-    not?: NestedEnumMissionTypeFilter<$PrismaModel> | $Enums.MissionType
-  }
-
-  export type NestedEnumMissionTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.MissionType | EnumMissionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.MissionType[]
-    notIn?: $Enums.MissionType[]
-    not?: NestedEnumMissionTypeWithAggregatesFilter<$PrismaModel> | $Enums.MissionType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumMissionTypeFilter<$PrismaModel>
-    _max?: NestedEnumMissionTypeFilter<$PrismaModel>
-  }
-
   export type NestedEnumMissionStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.MissionStatus | EnumMissionStatusFieldRefInput<$PrismaModel>
     in?: $Enums.MissionStatus[]
     notIn?: $Enums.MissionStatus[]
     not?: NestedEnumMissionStatusFilter<$PrismaModel> | $Enums.MissionStatus
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedEnumMissionStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -16080,35 +14877,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMissionStatusFilter<$PrismaModel>
     _max?: NestedEnumMissionStatusFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type BadgeCreateWithoutUserInput = {
@@ -16227,31 +14995,6 @@ export namespace Prisma {
 
   export type MissionCompletionCreateManyUserInputEnvelope = {
     data: MissionCompletionCreateManyUserInput | MissionCompletionCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type SurveyCreateWithoutUserInput = {
-    age: number
-    gender: string
-    answers: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-  }
-
-  export type SurveyUncheckedCreateWithoutUserInput = {
-    id?: number
-    age: number
-    gender: string
-    answers: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-  }
-
-  export type SurveyCreateOrConnectWithoutUserInput = {
-    where: SurveyWhereUniqueInput
-    create: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput>
-  }
-
-  export type SurveyCreateManyUserInputEnvelope = {
-    data: SurveyCreateManyUserInput | SurveyCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -16425,34 +15168,6 @@ export namespace Prisma {
     feedback?: StringNullableFilter<"MissionCompletion"> | string | null
   }
 
-  export type SurveyUpsertWithWhereUniqueWithoutUserInput = {
-    where: SurveyWhereUniqueInput
-    update: XOR<SurveyUpdateWithoutUserInput, SurveyUncheckedUpdateWithoutUserInput>
-    create: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput>
-  }
-
-  export type SurveyUpdateWithWhereUniqueWithoutUserInput = {
-    where: SurveyWhereUniqueInput
-    data: XOR<SurveyUpdateWithoutUserInput, SurveyUncheckedUpdateWithoutUserInput>
-  }
-
-  export type SurveyUpdateManyWithWhereWithoutUserInput = {
-    where: SurveyScalarWhereInput
-    data: XOR<SurveyUpdateManyMutationInput, SurveyUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type SurveyScalarWhereInput = {
-    AND?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
-    OR?: SurveyScalarWhereInput[]
-    NOT?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
-    id?: IntFilter<"Survey"> | number
-    userId?: IntFilter<"Survey"> | number
-    age?: IntFilter<"Survey"> | number
-    gender?: StringFilter<"Survey"> | string
-    answers?: JsonFilter<"Survey">
-    createdAt?: DateTimeFilter<"Survey"> | Date | string
-  }
-
   export type SurveyAnswerUpsertWithWhereUniqueWithoutUserInput = {
     where: SurveyAnswerWhereUniqueInput
     update: XOR<SurveyAnswerUpdateWithoutUserInput, SurveyAnswerUncheckedUpdateWithoutUserInput>
@@ -16504,84 +15219,6 @@ export namespace Prisma {
     totalScore?: IntFilter<"SurveyResult"> | number
     level?: StringFilter<"SurveyResult"> | string
     createdAt?: DateTimeFilter<"SurveyResult"> | Date | string
-  }
-
-  export type UserCreateWithoutSurveysInput = {
-    email: string
-    password: string
-    nickname: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    badges?: BadgeCreateNestedManyWithoutUserInput
-    dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
-    friendOf?: FriendCreateNestedManyWithoutFriendInput
-    friends?: FriendCreateNestedManyWithoutUserInput
-    missions?: MissionCompletionCreateNestedManyWithoutUserInput
-    surveyAnswers?: SurveyAnswerCreateNestedManyWithoutUserInput
-    surveyResults?: SurveyResultCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutSurveysInput = {
-    id?: number
-    email: string
-    password: string
-    nickname: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
-    dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
-    friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
-    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
-    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
-    surveyAnswers?: SurveyAnswerUncheckedCreateNestedManyWithoutUserInput
-    surveyResults?: SurveyResultUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutSurveysInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutSurveysInput, UserUncheckedCreateWithoutSurveysInput>
-  }
-
-  export type UserUpsertWithoutSurveysInput = {
-    update: XOR<UserUpdateWithoutSurveysInput, UserUncheckedUpdateWithoutSurveysInput>
-    create: XOR<UserCreateWithoutSurveysInput, UserUncheckedCreateWithoutSurveysInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutSurveysInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutSurveysInput, UserUncheckedUpdateWithoutSurveysInput>
-  }
-
-  export type UserUpdateWithoutSurveysInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    nickname?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    badges?: BadgeUpdateManyWithoutUserNestedInput
-    dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
-    friendOf?: FriendUpdateManyWithoutFriendNestedInput
-    friends?: FriendUpdateManyWithoutUserNestedInput
-    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
-    surveyAnswers?: SurveyAnswerUpdateManyWithoutUserNestedInput
-    surveyResults?: SurveyResultUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutSurveysInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    nickname?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
-    dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
-    friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
-    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
-    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
-    surveyAnswers?: SurveyAnswerUncheckedUpdateManyWithoutUserNestedInput
-    surveyResults?: SurveyResultUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MissionCompletionCreateWithoutMissionInput = {
@@ -16657,13 +15294,14 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeCreateNestedManyWithoutUserInput
     dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
     friendOf?: FriendCreateNestedManyWithoutFriendInput
     friends?: FriendCreateNestedManyWithoutUserInput
-    surveys?: SurveyCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultCreateNestedManyWithoutUserInput
   }
@@ -16673,13 +15311,14 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
     dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     friends?: FriendUncheckedCreateNestedManyWithoutUserInput
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerUncheckedCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultUncheckedCreateNestedManyWithoutUserInput
   }
@@ -16757,13 +15396,14 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUpdateManyWithoutUserNestedInput
     dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
     friends?: FriendUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUpdateManyWithoutUserNestedInput
   }
@@ -16773,13 +15413,14 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
     dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUncheckedUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -16869,13 +15510,14 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
     friendOf?: FriendCreateNestedManyWithoutFriendInput
     friends?: FriendCreateNestedManyWithoutUserInput
     missions?: MissionCompletionCreateNestedManyWithoutUserInput
-    surveys?: SurveyCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultCreateNestedManyWithoutUserInput
   }
@@ -16885,13 +15527,14 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerUncheckedCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultUncheckedCreateNestedManyWithoutUserInput
   }
@@ -16916,13 +15559,14 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
     friends?: FriendUpdateManyWithoutUserNestedInput
     missions?: MissionCompletionUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUpdateManyWithoutUserNestedInput
   }
@@ -16932,13 +15576,14 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUncheckedUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -16947,13 +15592,14 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeCreateNestedManyWithoutUserInput
     dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
     friends?: FriendCreateNestedManyWithoutUserInput
     missions?: MissionCompletionCreateNestedManyWithoutUserInput
-    surveys?: SurveyCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultCreateNestedManyWithoutUserInput
   }
@@ -16963,13 +15609,14 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
     dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
     friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerUncheckedCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultUncheckedCreateNestedManyWithoutUserInput
   }
@@ -16983,13 +15630,14 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeCreateNestedManyWithoutUserInput
     dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
     friendOf?: FriendCreateNestedManyWithoutFriendInput
     missions?: MissionCompletionCreateNestedManyWithoutUserInput
-    surveys?: SurveyCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultCreateNestedManyWithoutUserInput
   }
@@ -16999,13 +15647,14 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
     dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerUncheckedCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultUncheckedCreateNestedManyWithoutUserInput
   }
@@ -17030,13 +15679,14 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUpdateManyWithoutUserNestedInput
     dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
     friends?: FriendUpdateManyWithoutUserNestedInput
     missions?: MissionCompletionUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUpdateManyWithoutUserNestedInput
   }
@@ -17046,13 +15696,14 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
     dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
     friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUncheckedUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -17072,13 +15723,14 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUpdateManyWithoutUserNestedInput
     dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
     missions?: MissionCompletionUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUpdateManyWithoutUserNestedInput
   }
@@ -17088,13 +15740,14 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
     dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUncheckedUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -17103,13 +15756,14 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeCreateNestedManyWithoutUserInput
     friendOf?: FriendCreateNestedManyWithoutFriendInput
     friends?: FriendCreateNestedManyWithoutUserInput
     missions?: MissionCompletionCreateNestedManyWithoutUserInput
-    surveys?: SurveyCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultCreateNestedManyWithoutUserInput
   }
@@ -17119,13 +15773,14 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerUncheckedCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultUncheckedCreateNestedManyWithoutUserInput
   }
@@ -17150,13 +15805,14 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUpdateManyWithoutUserNestedInput
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
     friends?: FriendUpdateManyWithoutUserNestedInput
     missions?: MissionCompletionUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUpdateManyWithoutUserNestedInput
   }
@@ -17166,13 +15822,14 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUncheckedUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -17218,6 +15875,8 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeCreateNestedManyWithoutUserInput
@@ -17225,7 +15884,6 @@ export namespace Prisma {
     friendOf?: FriendCreateNestedManyWithoutFriendInput
     friends?: FriendCreateNestedManyWithoutUserInput
     missions?: MissionCompletionCreateNestedManyWithoutUserInput
-    surveys?: SurveyCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultCreateNestedManyWithoutUserInput
   }
 
@@ -17234,6 +15892,8 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
@@ -17241,7 +15901,6 @@ export namespace Prisma {
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
     surveyResults?: SurveyResultUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -17281,6 +15940,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUpdateManyWithoutUserNestedInput
@@ -17288,7 +15949,6 @@ export namespace Prisma {
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
     friends?: FriendUpdateManyWithoutUserNestedInput
     missions?: MissionCompletionUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUpdateManyWithoutUserNestedInput
   }
 
@@ -17297,6 +15957,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
@@ -17304,7 +15966,6 @@ export namespace Prisma {
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
     surveyResults?: SurveyResultUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -17334,6 +15995,8 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeCreateNestedManyWithoutUserInput
@@ -17341,7 +16004,6 @@ export namespace Prisma {
     friendOf?: FriendCreateNestedManyWithoutFriendInput
     friends?: FriendCreateNestedManyWithoutUserInput
     missions?: MissionCompletionCreateNestedManyWithoutUserInput
-    surveys?: SurveyCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerCreateNestedManyWithoutUserInput
   }
 
@@ -17350,6 +16012,8 @@ export namespace Prisma {
     email: string
     password: string
     nickname: string
+    age?: number | null
+    gender?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
@@ -17357,7 +16021,6 @@ export namespace Prisma {
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
     surveyAnswers?: SurveyAnswerUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -17381,6 +16044,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUpdateManyWithoutUserNestedInput
@@ -17388,7 +16053,6 @@ export namespace Prisma {
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
     friends?: FriendUpdateManyWithoutUserNestedInput
     missions?: MissionCompletionUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUpdateManyWithoutUserNestedInput
   }
 
@@ -17397,6 +16061,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     nickname?: StringFieldUpdateOperationsInput | string
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
@@ -17404,7 +16070,6 @@ export namespace Prisma {
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
     surveyAnswers?: SurveyAnswerUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -17442,14 +16107,6 @@ export namespace Prisma {
     verificationData: JsonNullValueInput | InputJsonValue
     status: $Enums.MissionStatus
     feedback?: string | null
-  }
-
-  export type SurveyCreateManyUserInput = {
-    id?: number
-    age: number
-    gender: string
-    answers: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
   }
 
   export type SurveyAnswerCreateManyUserInput = {
@@ -17568,29 +16225,6 @@ export namespace Prisma {
     verificationData?: JsonNullValueInput | InputJsonValue
     status?: EnumMissionStatusFieldUpdateOperationsInput | $Enums.MissionStatus
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type SurveyUpdateWithoutUserInput = {
-    age?: IntFieldUpdateOperationsInput | number
-    gender?: StringFieldUpdateOperationsInput | string
-    answers?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SurveyUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    age?: IntFieldUpdateOperationsInput | number
-    gender?: StringFieldUpdateOperationsInput | string
-    answers?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SurveyUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    age?: IntFieldUpdateOperationsInput | number
-    gender?: StringFieldUpdateOperationsInput | string
-    answers?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SurveyAnswerUpdateWithoutUserInput = {
