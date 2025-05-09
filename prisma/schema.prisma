@@ -21,6 +21,8 @@ model User {
   friendOf      Friend[]              @relation("FriendOf")
   friends       Friend[]              @relation("UserFriends")
   missions      MissionCompletion[]
+  friendRequestsSent     FriendRequest[] @relation("FromUser")
+  friendRequestsReceived FriendRequest[] @relation("ToUser")
   surveyAnswers SurveyAnswer[]
   surveyResults SurveyResult[]
   missionsCreated Mission[]
@@ -42,6 +44,15 @@ model Mission {
   @@map("mission")
 }
 
+model FriendRequest {
+  id         Int      @id @default(autoincrement())
+  fromUserId Int
+  toUserId   Int
+  status     String   // "REQUESTED", "ACCEPTED", "REJECTED"
+  createdAt  DateTime @default(now())
+  fromUser   User     @relation("FromUser", fields: [fromUserId], references: [id])
+  toUser     User     @relation("ToUser", fields: [toUserId], references: [id])
+}
 model MissionCompletion {
   id               Int                   @id @default(autoincrement())
   userId           Int
