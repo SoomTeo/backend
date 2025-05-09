@@ -183,6 +183,9 @@ export class MissionService {
         };
         break;
       case 'BUTTON':
+        if (!dto.isSuccess) {
+          throw new ForbiddenException('글귀를 끝까지 읽어주세요!');
+        }
         feedback = '좋은 글귀를 잘 읽으셨군요!';
         break;
       case 'DIARY':
