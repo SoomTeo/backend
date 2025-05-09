@@ -80,6 +80,8 @@ export class MissionService {
         ...missionData,
         type: dto.type as MissionType,
         userId,
+        verificationType: dto.type,
+        verificationData: missionData.verificationData ?? {},
       },
     });
   }
