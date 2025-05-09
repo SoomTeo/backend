@@ -21,6 +21,8 @@ model User {
   friends       Friend[]              @relation("UserFriends")
   missions      MissionCompletion[]
   surveys       Survey[]
+  surveyAnswers SurveyAnswer[]
+  surveyResults SurveyResult[]
 
   @@map("user")
 }
@@ -116,6 +118,32 @@ model DailyWeeklyProgress {
 
   @@index([userId], map: "dailyWeeklyProgress_userId_fkey")
   @@map("dailyWeeklyProgress")
+}
+
+model SurveyQuestion {
+  id      Int    @id @default(autoincrement())
+  order   Int
+  content String
+  answers SurveyAnswer[]
+}
+
+model SurveyAnswer {
+  id         Int    @id @default(autoincrement())
+  userId     Int
+  questionId Int
+  score      Int
+  user       User   @relation(fields: [userId], references: [id])
+  question   SurveyQuestion @relation(fields: [questionId], references: [id])
+  @@unique([userId, questionId])
+}
+
+model SurveyResult {
+  id         Int    @id @default(autoincrement())
+  userId     Int    @unique
+  totalScore Int
+  level      String
+  createdAt  DateTime @default(now())
+  user       User   @relation(fields: [userId], references: [id])
 }
 
 enum MissionType {

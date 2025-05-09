@@ -11,8 +11,10 @@ export class SurveyService {
   }
 
   async saveProfile(userId: number, age: number, gender: string) {
+    const survey = await this.prisma.survey.findFirst({ where: { userId } });
+    if (!survey) throw new Error('설문이 존재하지 않습니다.');
     return this.prisma.survey.update({
-      where: { userId },
+      where: { id: survey.id },
       data: { age, gender },
     });
   }

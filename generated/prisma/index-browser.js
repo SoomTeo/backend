@@ -190,6 +190,27 @@ exports.Prisma.DailyWeeklyProgressScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.SurveyQuestionScalarFieldEnum = {
+  id: 'id',
+  order: 'order',
+  content: 'content'
+};
+
+exports.Prisma.SurveyAnswerScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  questionId: 'questionId',
+  score: 'score'
+};
+
+exports.Prisma.SurveyResultScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  totalScore: 'totalScore',
+  level: 'level',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -247,6 +268,14 @@ exports.Prisma.BadgeOrderByRelevanceFieldEnum = {
 exports.Prisma.DailyWeeklyProgressOrderByRelevanceFieldEnum = {
   type: 'type'
 };
+
+exports.Prisma.SurveyQuestionOrderByRelevanceFieldEnum = {
+  content: 'content'
+};
+
+exports.Prisma.SurveyResultOrderByRelevanceFieldEnum = {
+  level: 'level'
+};
 exports.MissionType = exports.$Enums.MissionType = {
   RECEIPT: 'RECEIPT',
   GPS: 'GPS',
@@ -269,7 +298,10 @@ exports.Prisma.ModelName = {
   MissionVerification: 'MissionVerification',
   Badge: 'Badge',
   Friend: 'Friend',
-  DailyWeeklyProgress: 'DailyWeeklyProgress'
+  DailyWeeklyProgress: 'DailyWeeklyProgress',
+  SurveyQuestion: 'SurveyQuestion',
+  SurveyAnswer: 'SurveyAnswer',
+  SurveyResult: 'SurveyResult'
 };
 
 /**
