@@ -55,7 +55,7 @@ export async function callOcrApi(file: Express.Multer.File): Promise<string> {
 // GPT로 일기 피드백 생성
 export async function callGptDiaryFeedback(diaryText: string): Promise<string> {
   const prompt = `
-다음은 사용자가 작성한 일기입니다. 공감과 격려를 담아 피드백을 해주세요.
+다음은 사용자가 작성한 일기입니다. 공감과 격려를 담아 피드백을 해주세요. 완벽한 문장 구성으로 반환해주세요.
 일기 내용: ${diaryText}
 `;
 
