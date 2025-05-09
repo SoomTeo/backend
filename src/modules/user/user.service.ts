@@ -32,6 +32,7 @@ export class UserService {
     return {
       userId: user.id,
       email: user.email,
+      nickname: user.nickname,
       level: user.surveyResults ? user.surveyResults.level : null,
     };
   }
