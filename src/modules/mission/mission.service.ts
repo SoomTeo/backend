@@ -29,6 +29,23 @@ export class MissionService {
     });
   }
 
+  // 미션이 0개면 타입별로 하나씩 자동 생성
+  public async ensureUserHasMissions(userId: number) {
+    const remaining = await this.prisma.mission.count({ where: { userId } });
+    if (remaining === 0) {
+      const ALL_MISSION_TYPES: MissionType[] = [
+        'RECEIPT',
+        'GPS',
+        'VOICE',
+        'BUTTON',
+        'DIARY',
+      ];
+      for (const type of ALL_MISSION_TYPES) {
+        await this.createMissionByType(userId, { type } as any);
+      }
+    }
+  }
+
   async getMissionById(userId: number, id: number) {
     const mission = await this.prisma.mission.findUnique({
       where: { id },
@@ -148,39 +165,24 @@ export class MissionService {
 
     switch (mission.type) {
       case 'RECEIPT':
-        // if (!file || !file.path) {
-        //   throw new BadRequestException('영수증 이미지 파일이 필요합니다.');
-        // }
         const ocrText = await callOcrApi(file);
         feedback = `영수증에서 '${ocrText}'를 확인했습니다!`;
         verificationData = { ocrText };
         break;
       case 'GPS':
-        // 2. GPS 미션 (클라이언트에서 성공 여부 판단)
         if (!dto.isSuccess) {
           throw new ForbiddenException('미션 조건을 충족하지 못했습니다.');
         }
-        // const { startTime, endTime, path } = dto;
-        // const duration =
-        //   (new Date(endTime).getTime() - new Date(startTime).getTime()) /
-        //   1000 /
-        //   60;
         feedback = `산책 미션 성공!`;
         verificationData = {};
         break;
       case 'VOICE':
-        // 3. 음성 인식 미션 (클라이언트에서 성공 여부 판단)
         if (!dto.isSuccess) {
           throw new ForbiddenException(
             '발음이 정확하지 않습니다. 다시 시도해주세요.'
           );
         }
-        //const { targetText, recognizedText } = dto;
         feedback = '발음을 정확하게 따라하셨네요!';
-        // verificationData = {
-        //   targetText,
-        //   recognizedText,
-        // };
         break;
       case 'BUTTON':
         if (!dto.isSuccess) {
@@ -189,7 +191,6 @@ export class MissionService {
         feedback = '좋은 글귀를 잘 읽으셨군요!';
         break;
       case 'DIARY':
-        // 4. GPT로 일기 피드백
         feedback = await callGptDiaryFeedback(dto.diaryText);
         verificationData = { diaryText: dto.diaryText };
         break;
@@ -218,6 +219,18 @@ export class MissionService {
         mission.type as MissionType,
         points
       );
+
+    // 미션 완료 후 남은 미션 개수 체크 → 0개면 자동 생성
+    const remaining = await this.prisma.mission.count({
+      where: {
+        userId,
+        completions: { none: { userId } }, // 이 유저가 완료하지 않은 미션만 카운트
+      },
+    });
+    if (remaining === 0) {
+      // 지금 막 완료한 미션이 포함되어 있으므로 1개면 0개가 됨
+      await this.ensureUserHasMissions(userId);
+    }
 
     return {
       ...completion,

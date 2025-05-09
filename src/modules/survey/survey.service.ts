@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@src/shared/prisma/prisma.service';
 import { SubmitSurveyDto } from './dto/submit.dto';
+import { MissionService } from '@src/modules/mission/mission.service';
 
 @Injectable()
 export class SurveyService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly missionService: MissionService
+  ) {}
 
   async getQuestions() {
     const questions = await this.prisma.surveyQuestion.findMany({
@@ -51,6 +55,8 @@ export class SurveyService {
       update: { totalScore: total, level },
       create: { userId, totalScore: total, level },
     });
+    // 미션 자동 생성
+    await this.missionService.ensureUserHasMissions(userId);
     return { total, level };
   }
 }
