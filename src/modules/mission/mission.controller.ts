@@ -9,8 +9,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { MissionService } from './mission.service';
-import { CreateMissionDto } from './dto/create-mission.dto';
-import { CompleteMissionDto } from './dto/complete-mission.dto';
 import { CreateMissionByTypeDto } from './dto/create-mission-by-type.dto';
 import { JwtAuthGuard } from '@src/modules/auth/jwt-auth.guard';
 

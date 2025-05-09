@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '@src/shared/prisma/prisma.service';
 import { CreateMissionDto } from './dto/create-mission.dto';
-import { CompleteMissionDto } from './dto/complete-mission.dto';
 import { CreateMissionByTypeDto } from './dto/create-mission-by-type.dto';
 import { makeMissionPrompt } from './prompt.util';
 import { createChatCompletion } from '@src/common/utils/openai'; // GPT 유틸
@@ -33,7 +32,7 @@ export class MissionService {
     return mission;
   }
 
-  async createMission(dto: CreateMissionDto) {
+  async createMission(userId: number, dto: CreateMissionDto) {
     return this.prisma.mission.create({
       data: {
         title: dto.title,
@@ -41,6 +40,7 @@ export class MissionService {
         type: dto.type as any,
         verificationType: dto.verificationType,
         verificationData: dto.verificationData,
+        userId,
       },
     });
   }

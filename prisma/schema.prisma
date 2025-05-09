@@ -23,7 +23,7 @@ model User {
   missions      MissionCompletion[]
   surveyAnswers SurveyAnswer[]
   surveyResults SurveyResult[]
-
+  missionsCreated Mission[]
   @@map("user")
 }
 
@@ -35,6 +35,8 @@ model Mission {
   verificationType String
   verificationData Json
   createdAt        DateTime            @default(now())
+  userId           Int                 // 추가
+  user             User                @relation(fields: [userId], references: [id])
   completions      MissionCompletion[]
 
   @@map("mission")
