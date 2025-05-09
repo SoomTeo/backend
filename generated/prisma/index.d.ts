@@ -1475,21 +1475,21 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    surveys: number
-    missions: number
     badges: number
-    friends: number
-    friendOf: number
     dailyProgress: number
+    friendOf: number
+    friends: number
+    missions: number
+    surveys: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    surveys?: boolean | UserCountOutputTypeCountSurveysArgs
-    missions?: boolean | UserCountOutputTypeCountMissionsArgs
     badges?: boolean | UserCountOutputTypeCountBadgesArgs
-    friends?: boolean | UserCountOutputTypeCountFriendsArgs
-    friendOf?: boolean | UserCountOutputTypeCountFriendOfArgs
     dailyProgress?: boolean | UserCountOutputTypeCountDailyProgressArgs
+    friendOf?: boolean | UserCountOutputTypeCountFriendOfArgs
+    friends?: boolean | UserCountOutputTypeCountFriendsArgs
+    missions?: boolean | UserCountOutputTypeCountMissionsArgs
+    surveys?: boolean | UserCountOutputTypeCountSurveysArgs
   }
 
   // Custom InputTypes
@@ -1506,20 +1506,6 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountSurveysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SurveyWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountMissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MissionCompletionWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
   export type UserCountOutputTypeCountBadgesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BadgeWhereInput
   }
@@ -1527,8 +1513,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountFriendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FriendWhereInput
+  export type UserCountOutputTypeCountDailyProgressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyWeeklyProgressWhereInput
   }
 
   /**
@@ -1541,8 +1527,22 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountDailyProgressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DailyWeeklyProgressWhereInput
+  export type UserCountOutputTypeCountFriendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FriendWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MissionCompletionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSurveysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SurveyWhereInput
   }
 
 
@@ -1818,12 +1818,12 @@ export namespace Prisma {
     nickname?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    surveys?: boolean | User$surveysArgs<ExtArgs>
-    missions?: boolean | User$missionsArgs<ExtArgs>
     badges?: boolean | User$badgesArgs<ExtArgs>
-    friends?: boolean | User$friendsArgs<ExtArgs>
-    friendOf?: boolean | User$friendOfArgs<ExtArgs>
     dailyProgress?: boolean | User$dailyProgressArgs<ExtArgs>
+    friendOf?: boolean | User$friendOfArgs<ExtArgs>
+    friends?: boolean | User$friendsArgs<ExtArgs>
+    missions?: boolean | User$missionsArgs<ExtArgs>
+    surveys?: boolean | User$surveysArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1840,24 +1840,24 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "nickname" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    surveys?: boolean | User$surveysArgs<ExtArgs>
-    missions?: boolean | User$missionsArgs<ExtArgs>
     badges?: boolean | User$badgesArgs<ExtArgs>
-    friends?: boolean | User$friendsArgs<ExtArgs>
-    friendOf?: boolean | User$friendOfArgs<ExtArgs>
     dailyProgress?: boolean | User$dailyProgressArgs<ExtArgs>
+    friendOf?: boolean | User$friendOfArgs<ExtArgs>
+    friends?: boolean | User$friendsArgs<ExtArgs>
+    missions?: boolean | User$missionsArgs<ExtArgs>
+    surveys?: boolean | User$surveysArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      surveys: Prisma.$SurveyPayload<ExtArgs>[]
-      missions: Prisma.$MissionCompletionPayload<ExtArgs>[]
       badges: Prisma.$BadgePayload<ExtArgs>[]
-      friends: Prisma.$FriendPayload<ExtArgs>[]
-      friendOf: Prisma.$FriendPayload<ExtArgs>[]
       dailyProgress: Prisma.$DailyWeeklyProgressPayload<ExtArgs>[]
+      friendOf: Prisma.$FriendPayload<ExtArgs>[]
+      friends: Prisma.$FriendPayload<ExtArgs>[]
+      missions: Prisma.$MissionCompletionPayload<ExtArgs>[]
+      surveys: Prisma.$SurveyPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2206,12 +2206,12 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    surveys<T extends User$surveysArgs<ExtArgs> = {}>(args?: Subset<T, User$surveysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    missions<T extends User$missionsArgs<ExtArgs> = {}>(args?: Subset<T, User$missionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MissionCompletionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     badges<T extends User$badgesArgs<ExtArgs> = {}>(args?: Subset<T, User$badgesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BadgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    friends<T extends User$friendsArgs<ExtArgs> = {}>(args?: Subset<T, User$friendsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    friendOf<T extends User$friendOfArgs<ExtArgs> = {}>(args?: Subset<T, User$friendOfArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     dailyProgress<T extends User$dailyProgressArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyProgressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyWeeklyProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    friendOf<T extends User$friendOfArgs<ExtArgs> = {}>(args?: Subset<T, User$friendOfArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    friends<T extends User$friendsArgs<ExtArgs> = {}>(args?: Subset<T, User$friendsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    missions<T extends User$missionsArgs<ExtArgs> = {}>(args?: Subset<T, User$missionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MissionCompletionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    surveys<T extends User$surveysArgs<ExtArgs> = {}>(args?: Subset<T, User$surveysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2590,54 +2590,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.surveys
-   */
-  export type User$surveysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Survey
-     */
-    select?: SurveySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Survey
-     */
-    omit?: SurveyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SurveyInclude<ExtArgs> | null
-    where?: SurveyWhereInput
-    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
-    cursor?: SurveyWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
-  }
-
-  /**
-   * User.missions
-   */
-  export type User$missionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MissionCompletion
-     */
-    select?: MissionCompletionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MissionCompletion
-     */
-    omit?: MissionCompletionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MissionCompletionInclude<ExtArgs> | null
-    where?: MissionCompletionWhereInput
-    orderBy?: MissionCompletionOrderByWithRelationInput | MissionCompletionOrderByWithRelationInput[]
-    cursor?: MissionCompletionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MissionCompletionScalarFieldEnum | MissionCompletionScalarFieldEnum[]
-  }
-
-  /**
    * User.badges
    */
   export type User$badgesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2662,27 +2614,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.friends
+   * User.dailyProgress
    */
-  export type User$friendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$dailyProgressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Friend
+     * Select specific fields to fetch from the DailyWeeklyProgress
      */
-    select?: FriendSelect<ExtArgs> | null
+    select?: DailyWeeklyProgressSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Friend
+     * Omit specific fields from the DailyWeeklyProgress
      */
-    omit?: FriendOmit<ExtArgs> | null
+    omit?: DailyWeeklyProgressOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FriendInclude<ExtArgs> | null
-    where?: FriendWhereInput
-    orderBy?: FriendOrderByWithRelationInput | FriendOrderByWithRelationInput[]
-    cursor?: FriendWhereUniqueInput
+    include?: DailyWeeklyProgressInclude<ExtArgs> | null
+    where?: DailyWeeklyProgressWhereInput
+    orderBy?: DailyWeeklyProgressOrderByWithRelationInput | DailyWeeklyProgressOrderByWithRelationInput[]
+    cursor?: DailyWeeklyProgressWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: FriendScalarFieldEnum | FriendScalarFieldEnum[]
+    distinct?: DailyWeeklyProgressScalarFieldEnum | DailyWeeklyProgressScalarFieldEnum[]
   }
 
   /**
@@ -2710,27 +2662,75 @@ export namespace Prisma {
   }
 
   /**
-   * User.dailyProgress
+   * User.friends
    */
-  export type User$dailyProgressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$friendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DailyWeeklyProgress
+     * Select specific fields to fetch from the Friend
      */
-    select?: DailyWeeklyProgressSelect<ExtArgs> | null
+    select?: FriendSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DailyWeeklyProgress
+     * Omit specific fields from the Friend
      */
-    omit?: DailyWeeklyProgressOmit<ExtArgs> | null
+    omit?: FriendOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DailyWeeklyProgressInclude<ExtArgs> | null
-    where?: DailyWeeklyProgressWhereInput
-    orderBy?: DailyWeeklyProgressOrderByWithRelationInput | DailyWeeklyProgressOrderByWithRelationInput[]
-    cursor?: DailyWeeklyProgressWhereUniqueInput
+    include?: FriendInclude<ExtArgs> | null
+    where?: FriendWhereInput
+    orderBy?: FriendOrderByWithRelationInput | FriendOrderByWithRelationInput[]
+    cursor?: FriendWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: DailyWeeklyProgressScalarFieldEnum | DailyWeeklyProgressScalarFieldEnum[]
+    distinct?: FriendScalarFieldEnum | FriendScalarFieldEnum[]
+  }
+
+  /**
+   * User.missions
+   */
+  export type User$missionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MissionCompletion
+     */
+    select?: MissionCompletionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MissionCompletion
+     */
+    omit?: MissionCompletionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MissionCompletionInclude<ExtArgs> | null
+    where?: MissionCompletionWhereInput
+    orderBy?: MissionCompletionOrderByWithRelationInput | MissionCompletionOrderByWithRelationInput[]
+    cursor?: MissionCompletionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MissionCompletionScalarFieldEnum | MissionCompletionScalarFieldEnum[]
+  }
+
+  /**
+   * User.surveys
+   */
+  export type User$surveysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Survey
+     */
+    omit?: SurveyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    where?: SurveyWhereInput
+    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
+    cursor?: SurveyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
   }
 
   /**
@@ -4955,8 +4955,8 @@ export namespace Prisma {
     verificationData?: boolean
     status?: boolean
     feedback?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     mission?: boolean | MissionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     verifications?: boolean | MissionCompletion$verificationsArgs<ExtArgs>
     _count?: boolean | MissionCompletionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["missionCompletion"]>
@@ -4975,8 +4975,8 @@ export namespace Prisma {
 
   export type MissionCompletionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "missionId" | "completedAt" | "verificationData" | "status" | "feedback", ExtArgs["result"]["missionCompletion"]>
   export type MissionCompletionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     mission?: boolean | MissionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     verifications?: boolean | MissionCompletion$verificationsArgs<ExtArgs>
     _count?: boolean | MissionCompletionCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -4984,8 +4984,8 @@ export namespace Prisma {
   export type $MissionCompletionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MissionCompletion"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       mission: Prisma.$MissionPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
       verifications: Prisma.$MissionVerificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5336,8 +5336,8 @@ export namespace Prisma {
    */
   export interface Prisma__MissionCompletionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     mission<T extends MissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MissionDefaultArgs<ExtArgs>>): Prisma__MissionClient<$Result.GetResult<Prisma.$MissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     verifications<T extends MissionCompletion$verificationsArgs<ExtArgs> = {}>(args?: Subset<T, MissionCompletion$verificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MissionVerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7888,8 +7888,8 @@ export namespace Prisma {
     userId?: boolean
     friendId?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     friend?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["friend"]>
 
 
@@ -7903,15 +7903,15 @@ export namespace Prisma {
 
   export type FriendOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "friendId" | "createdAt", ExtArgs["result"]["friend"]>
   export type FriendInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     friend?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $FriendPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Friend"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       friend: Prisma.$UserPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -8258,8 +8258,8 @@ export namespace Prisma {
    */
   export interface Prisma__FriendClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     friend<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9904,12 +9904,12 @@ export namespace Prisma {
     nickname?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    surveys?: SurveyListRelationFilter
-    missions?: MissionCompletionListRelationFilter
     badges?: BadgeListRelationFilter
-    friends?: FriendListRelationFilter
-    friendOf?: FriendListRelationFilter
     dailyProgress?: DailyWeeklyProgressListRelationFilter
+    friendOf?: FriendListRelationFilter
+    friends?: FriendListRelationFilter
+    missions?: MissionCompletionListRelationFilter
+    surveys?: SurveyListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9919,12 +9919,12 @@ export namespace Prisma {
     nickname?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    surveys?: SurveyOrderByRelationAggregateInput
-    missions?: MissionCompletionOrderByRelationAggregateInput
     badges?: BadgeOrderByRelationAggregateInput
-    friends?: FriendOrderByRelationAggregateInput
-    friendOf?: FriendOrderByRelationAggregateInput
     dailyProgress?: DailyWeeklyProgressOrderByRelationAggregateInput
+    friendOf?: FriendOrderByRelationAggregateInput
+    friends?: FriendOrderByRelationAggregateInput
+    missions?: MissionCompletionOrderByRelationAggregateInput
+    surveys?: SurveyOrderByRelationAggregateInput
     _relevance?: UserOrderByRelevanceInput
   }
 
@@ -9938,12 +9938,12 @@ export namespace Prisma {
     nickname?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    surveys?: SurveyListRelationFilter
-    missions?: MissionCompletionListRelationFilter
     badges?: BadgeListRelationFilter
-    friends?: FriendListRelationFilter
-    friendOf?: FriendListRelationFilter
     dailyProgress?: DailyWeeklyProgressListRelationFilter
+    friendOf?: FriendListRelationFilter
+    friends?: FriendListRelationFilter
+    missions?: MissionCompletionListRelationFilter
+    surveys?: SurveyListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -10114,8 +10114,8 @@ export namespace Prisma {
     verificationData?: JsonFilter<"MissionCompletion">
     status?: EnumMissionStatusFilter<"MissionCompletion"> | $Enums.MissionStatus
     feedback?: StringNullableFilter<"MissionCompletion"> | string | null
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     mission?: XOR<MissionScalarRelationFilter, MissionWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     verifications?: MissionVerificationListRelationFilter
   }
 
@@ -10127,8 +10127,8 @@ export namespace Prisma {
     verificationData?: SortOrder
     status?: SortOrder
     feedback?: SortOrderInput | SortOrder
-    user?: UserOrderByWithRelationInput
     mission?: MissionOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
     verifications?: MissionVerificationOrderByRelationAggregateInput
     _relevance?: MissionCompletionOrderByRelevanceInput
   }
@@ -10144,8 +10144,8 @@ export namespace Prisma {
     verificationData?: JsonFilter<"MissionCompletion">
     status?: EnumMissionStatusFilter<"MissionCompletion"> | $Enums.MissionStatus
     feedback?: StringNullableFilter<"MissionCompletion"> | string | null
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     mission?: XOR<MissionScalarRelationFilter, MissionWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     verifications?: MissionVerificationListRelationFilter
   }, "id">
 
@@ -10301,8 +10301,8 @@ export namespace Prisma {
     userId?: IntFilter<"Friend"> | number
     friendId?: IntFilter<"Friend"> | number
     createdAt?: DateTimeFilter<"Friend"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     friend?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type FriendOrderByWithRelationInput = {
@@ -10310,8 +10310,8 @@ export namespace Prisma {
     userId?: SortOrder
     friendId?: SortOrder
     createdAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     friend?: UserOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type FriendWhereUniqueInput = Prisma.AtLeast<{
@@ -10322,8 +10322,8 @@ export namespace Prisma {
     userId?: IntFilter<"Friend"> | number
     friendId?: IntFilter<"Friend"> | number
     createdAt?: DateTimeFilter<"Friend"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     friend?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type FriendOrderByWithAggregationInput = {
@@ -10417,12 +10417,12 @@ export namespace Prisma {
     nickname: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    surveys?: SurveyCreateNestedManyWithoutUserInput
-    missions?: MissionCompletionCreateNestedManyWithoutUserInput
     badges?: BadgeCreateNestedManyWithoutUserInput
-    friends?: FriendCreateNestedManyWithoutUserInput
-    friendOf?: FriendCreateNestedManyWithoutFriendInput
     dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
+    friendOf?: FriendCreateNestedManyWithoutFriendInput
+    friends?: FriendCreateNestedManyWithoutUserInput
+    missions?: MissionCompletionCreateNestedManyWithoutUserInput
+    surveys?: SurveyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10432,12 +10432,12 @@ export namespace Prisma {
     nickname: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
-    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
-    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
-    friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
+    friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
+    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10446,12 +10446,12 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
-    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
     badges?: BadgeUpdateManyWithoutUserNestedInput
-    friends?: FriendUpdateManyWithoutUserNestedInput
-    friendOf?: FriendUpdateManyWithoutFriendNestedInput
     dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
+    friendOf?: FriendUpdateManyWithoutFriendNestedInput
+    friends?: FriendUpdateManyWithoutUserNestedInput
+    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
+    surveys?: SurveyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10461,12 +10461,12 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
-    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
-    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
-    friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
+    friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
+    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10630,8 +10630,8 @@ export namespace Prisma {
     verificationData: JsonNullValueInput | InputJsonValue
     status: $Enums.MissionStatus
     feedback?: string | null
-    user: UserCreateNestedOneWithoutMissionsInput
     mission: MissionCreateNestedOneWithoutCompletionsInput
+    user: UserCreateNestedOneWithoutMissionsInput
     verifications?: MissionVerificationCreateNestedManyWithoutMissionCompletionInput
   }
 
@@ -10651,8 +10651,8 @@ export namespace Prisma {
     verificationData?: JsonNullValueInput | InputJsonValue
     status?: EnumMissionStatusFieldUpdateOperationsInput | $Enums.MissionStatus
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutMissionsNestedInput
     mission?: MissionUpdateOneRequiredWithoutCompletionsNestedInput
+    user?: UserUpdateOneRequiredWithoutMissionsNestedInput
     verifications?: MissionVerificationUpdateManyWithoutMissionCompletionNestedInput
   }
 
@@ -10800,8 +10800,8 @@ export namespace Prisma {
 
   export type FriendCreateInput = {
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutFriendsInput
     friend: UserCreateNestedOneWithoutFriendOfInput
+    user: UserCreateNestedOneWithoutFriendsInput
   }
 
   export type FriendUncheckedCreateInput = {
@@ -10813,8 +10813,8 @@ export namespace Prisma {
 
   export type FriendUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutFriendsNestedInput
     friend?: UserUpdateOneRequiredWithoutFriendOfNestedInput
+    user?: UserUpdateOneRequiredWithoutFriendsNestedInput
   }
 
   export type FriendUncheckedUpdateInput = {
@@ -10938,28 +10938,10 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type SurveyListRelationFilter = {
-    every?: SurveyWhereInput
-    some?: SurveyWhereInput
-    none?: SurveyWhereInput
-  }
-
-  export type MissionCompletionListRelationFilter = {
-    every?: MissionCompletionWhereInput
-    some?: MissionCompletionWhereInput
-    none?: MissionCompletionWhereInput
-  }
-
   export type BadgeListRelationFilter = {
     every?: BadgeWhereInput
     some?: BadgeWhereInput
     none?: BadgeWhereInput
-  }
-
-  export type FriendListRelationFilter = {
-    every?: FriendWhereInput
-    some?: FriendWhereInput
-    none?: FriendWhereInput
   }
 
   export type DailyWeeklyProgressListRelationFilter = {
@@ -10968,15 +10950,29 @@ export namespace Prisma {
     none?: DailyWeeklyProgressWhereInput
   }
 
-  export type SurveyOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type FriendListRelationFilter = {
+    every?: FriendWhereInput
+    some?: FriendWhereInput
+    none?: FriendWhereInput
   }
 
-  export type MissionCompletionOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type MissionCompletionListRelationFilter = {
+    every?: MissionCompletionWhereInput
+    some?: MissionCompletionWhereInput
+    none?: MissionCompletionWhereInput
+  }
+
+  export type SurveyListRelationFilter = {
+    every?: SurveyWhereInput
+    some?: SurveyWhereInput
+    none?: SurveyWhereInput
   }
 
   export type BadgeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DailyWeeklyProgressOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10984,7 +10980,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type DailyWeeklyProgressOrderByRelationAggregateInput = {
+  export type MissionCompletionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SurveyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11506,39 +11506,11 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
-  export type SurveyCreateNestedManyWithoutUserInput = {
-    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
-    createMany?: SurveyCreateManyUserInputEnvelope
-    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-  }
-
-  export type MissionCompletionCreateNestedManyWithoutUserInput = {
-    create?: XOR<MissionCompletionCreateWithoutUserInput, MissionCompletionUncheckedCreateWithoutUserInput> | MissionCompletionCreateWithoutUserInput[] | MissionCompletionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: MissionCompletionCreateOrConnectWithoutUserInput | MissionCompletionCreateOrConnectWithoutUserInput[]
-    createMany?: MissionCompletionCreateManyUserInputEnvelope
-    connect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
-  }
-
   export type BadgeCreateNestedManyWithoutUserInput = {
     create?: XOR<BadgeCreateWithoutUserInput, BadgeUncheckedCreateWithoutUserInput> | BadgeCreateWithoutUserInput[] | BadgeUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BadgeCreateOrConnectWithoutUserInput | BadgeCreateOrConnectWithoutUserInput[]
     createMany?: BadgeCreateManyUserInputEnvelope
     connect?: BadgeWhereUniqueInput | BadgeWhereUniqueInput[]
-  }
-
-  export type FriendCreateNestedManyWithoutUserInput = {
-    create?: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput> | FriendCreateWithoutUserInput[] | FriendUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: FriendCreateOrConnectWithoutUserInput | FriendCreateOrConnectWithoutUserInput[]
-    createMany?: FriendCreateManyUserInputEnvelope
-    connect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
-  }
-
-  export type FriendCreateNestedManyWithoutFriendInput = {
-    create?: XOR<FriendCreateWithoutFriendInput, FriendUncheckedCreateWithoutFriendInput> | FriendCreateWithoutFriendInput[] | FriendUncheckedCreateWithoutFriendInput[]
-    connectOrCreate?: FriendCreateOrConnectWithoutFriendInput | FriendCreateOrConnectWithoutFriendInput[]
-    createMany?: FriendCreateManyFriendInputEnvelope
-    connect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
   }
 
   export type DailyWeeklyProgressCreateNestedManyWithoutUserInput = {
@@ -11548,18 +11520,32 @@ export namespace Prisma {
     connect?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
   }
 
-  export type SurveyUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
-    createMany?: SurveyCreateManyUserInputEnvelope
-    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+  export type FriendCreateNestedManyWithoutFriendInput = {
+    create?: XOR<FriendCreateWithoutFriendInput, FriendUncheckedCreateWithoutFriendInput> | FriendCreateWithoutFriendInput[] | FriendUncheckedCreateWithoutFriendInput[]
+    connectOrCreate?: FriendCreateOrConnectWithoutFriendInput | FriendCreateOrConnectWithoutFriendInput[]
+    createMany?: FriendCreateManyFriendInputEnvelope
+    connect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
   }
 
-  export type MissionCompletionUncheckedCreateNestedManyWithoutUserInput = {
+  export type FriendCreateNestedManyWithoutUserInput = {
+    create?: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput> | FriendCreateWithoutUserInput[] | FriendUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FriendCreateOrConnectWithoutUserInput | FriendCreateOrConnectWithoutUserInput[]
+    createMany?: FriendCreateManyUserInputEnvelope
+    connect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
+  }
+
+  export type MissionCompletionCreateNestedManyWithoutUserInput = {
     create?: XOR<MissionCompletionCreateWithoutUserInput, MissionCompletionUncheckedCreateWithoutUserInput> | MissionCompletionCreateWithoutUserInput[] | MissionCompletionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MissionCompletionCreateOrConnectWithoutUserInput | MissionCompletionCreateOrConnectWithoutUserInput[]
     createMany?: MissionCompletionCreateManyUserInputEnvelope
     connect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
+  }
+
+  export type SurveyCreateNestedManyWithoutUserInput = {
+    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
+    createMany?: SurveyCreateManyUserInputEnvelope
+    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
   }
 
   export type BadgeUncheckedCreateNestedManyWithoutUserInput = {
@@ -11569,11 +11555,11 @@ export namespace Prisma {
     connect?: BadgeWhereUniqueInput | BadgeWhereUniqueInput[]
   }
 
-  export type FriendUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput> | FriendCreateWithoutUserInput[] | FriendUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: FriendCreateOrConnectWithoutUserInput | FriendCreateOrConnectWithoutUserInput[]
-    createMany?: FriendCreateManyUserInputEnvelope
-    connect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
+  export type DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DailyWeeklyProgressCreateWithoutUserInput, DailyWeeklyProgressUncheckedCreateWithoutUserInput> | DailyWeeklyProgressCreateWithoutUserInput[] | DailyWeeklyProgressUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyWeeklyProgressCreateOrConnectWithoutUserInput | DailyWeeklyProgressCreateOrConnectWithoutUserInput[]
+    createMany?: DailyWeeklyProgressCreateManyUserInputEnvelope
+    connect?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
   }
 
   export type FriendUncheckedCreateNestedManyWithoutFriendInput = {
@@ -11583,11 +11569,25 @@ export namespace Prisma {
     connect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
   }
 
-  export type DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<DailyWeeklyProgressCreateWithoutUserInput, DailyWeeklyProgressUncheckedCreateWithoutUserInput> | DailyWeeklyProgressCreateWithoutUserInput[] | DailyWeeklyProgressUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DailyWeeklyProgressCreateOrConnectWithoutUserInput | DailyWeeklyProgressCreateOrConnectWithoutUserInput[]
-    createMany?: DailyWeeklyProgressCreateManyUserInputEnvelope
-    connect?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
+  export type FriendUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput> | FriendCreateWithoutUserInput[] | FriendUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FriendCreateOrConnectWithoutUserInput | FriendCreateOrConnectWithoutUserInput[]
+    createMany?: FriendCreateManyUserInputEnvelope
+    connect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
+  }
+
+  export type MissionCompletionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MissionCompletionCreateWithoutUserInput, MissionCompletionUncheckedCreateWithoutUserInput> | MissionCompletionCreateWithoutUserInput[] | MissionCompletionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MissionCompletionCreateOrConnectWithoutUserInput | MissionCompletionCreateOrConnectWithoutUserInput[]
+    createMany?: MissionCompletionCreateManyUserInputEnvelope
+    connect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
+  }
+
+  export type SurveyUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
+    createMany?: SurveyCreateManyUserInputEnvelope
+    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -11596,34 +11596,6 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
-  }
-
-  export type SurveyUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
-    upsert?: SurveyUpsertWithWhereUniqueWithoutUserInput | SurveyUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SurveyCreateManyUserInputEnvelope
-    set?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-    disconnect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-    delete?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
-    update?: SurveyUpdateWithWhereUniqueWithoutUserInput | SurveyUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SurveyUpdateManyWithWhereWithoutUserInput | SurveyUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
-  }
-
-  export type MissionCompletionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<MissionCompletionCreateWithoutUserInput, MissionCompletionUncheckedCreateWithoutUserInput> | MissionCompletionCreateWithoutUserInput[] | MissionCompletionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: MissionCompletionCreateOrConnectWithoutUserInput | MissionCompletionCreateOrConnectWithoutUserInput[]
-    upsert?: MissionCompletionUpsertWithWhereUniqueWithoutUserInput | MissionCompletionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: MissionCompletionCreateManyUserInputEnvelope
-    set?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
-    disconnect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
-    delete?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
-    connect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
-    update?: MissionCompletionUpdateWithWhereUniqueWithoutUserInput | MissionCompletionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: MissionCompletionUpdateManyWithWhereWithoutUserInput | MissionCompletionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: MissionCompletionScalarWhereInput | MissionCompletionScalarWhereInput[]
   }
 
   export type BadgeUpdateManyWithoutUserNestedInput = {
@@ -11640,18 +11612,18 @@ export namespace Prisma {
     deleteMany?: BadgeScalarWhereInput | BadgeScalarWhereInput[]
   }
 
-  export type FriendUpdateManyWithoutUserNestedInput = {
-    create?: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput> | FriendCreateWithoutUserInput[] | FriendUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: FriendCreateOrConnectWithoutUserInput | FriendCreateOrConnectWithoutUserInput[]
-    upsert?: FriendUpsertWithWhereUniqueWithoutUserInput | FriendUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: FriendCreateManyUserInputEnvelope
-    set?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
-    disconnect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
-    delete?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
-    connect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
-    update?: FriendUpdateWithWhereUniqueWithoutUserInput | FriendUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: FriendUpdateManyWithWhereWithoutUserInput | FriendUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: FriendScalarWhereInput | FriendScalarWhereInput[]
+  export type DailyWeeklyProgressUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DailyWeeklyProgressCreateWithoutUserInput, DailyWeeklyProgressUncheckedCreateWithoutUserInput> | DailyWeeklyProgressCreateWithoutUserInput[] | DailyWeeklyProgressUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyWeeklyProgressCreateOrConnectWithoutUserInput | DailyWeeklyProgressCreateOrConnectWithoutUserInput[]
+    upsert?: DailyWeeklyProgressUpsertWithWhereUniqueWithoutUserInput | DailyWeeklyProgressUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DailyWeeklyProgressCreateManyUserInputEnvelope
+    set?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
+    disconnect?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
+    delete?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
+    connect?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
+    update?: DailyWeeklyProgressUpdateWithWhereUniqueWithoutUserInput | DailyWeeklyProgressUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DailyWeeklyProgressUpdateManyWithWhereWithoutUserInput | DailyWeeklyProgressUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DailyWeeklyProgressScalarWhereInput | DailyWeeklyProgressScalarWhereInput[]
   }
 
   export type FriendUpdateManyWithoutFriendNestedInput = {
@@ -11668,29 +11640,35 @@ export namespace Prisma {
     deleteMany?: FriendScalarWhereInput | FriendScalarWhereInput[]
   }
 
-  export type DailyWeeklyProgressUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DailyWeeklyProgressCreateWithoutUserInput, DailyWeeklyProgressUncheckedCreateWithoutUserInput> | DailyWeeklyProgressCreateWithoutUserInput[] | DailyWeeklyProgressUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DailyWeeklyProgressCreateOrConnectWithoutUserInput | DailyWeeklyProgressCreateOrConnectWithoutUserInput[]
-    upsert?: DailyWeeklyProgressUpsertWithWhereUniqueWithoutUserInput | DailyWeeklyProgressUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DailyWeeklyProgressCreateManyUserInputEnvelope
-    set?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
-    disconnect?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
-    delete?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
-    connect?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
-    update?: DailyWeeklyProgressUpdateWithWhereUniqueWithoutUserInput | DailyWeeklyProgressUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DailyWeeklyProgressUpdateManyWithWhereWithoutUserInput | DailyWeeklyProgressUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DailyWeeklyProgressScalarWhereInput | DailyWeeklyProgressScalarWhereInput[]
+  export type FriendUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput> | FriendCreateWithoutUserInput[] | FriendUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FriendCreateOrConnectWithoutUserInput | FriendCreateOrConnectWithoutUserInput[]
+    upsert?: FriendUpsertWithWhereUniqueWithoutUserInput | FriendUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FriendCreateManyUserInputEnvelope
+    set?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
+    disconnect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
+    delete?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
+    connect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
+    update?: FriendUpdateWithWhereUniqueWithoutUserInput | FriendUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FriendUpdateManyWithWhereWithoutUserInput | FriendUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FriendScalarWhereInput | FriendScalarWhereInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type MissionCompletionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MissionCompletionCreateWithoutUserInput, MissionCompletionUncheckedCreateWithoutUserInput> | MissionCompletionCreateWithoutUserInput[] | MissionCompletionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MissionCompletionCreateOrConnectWithoutUserInput | MissionCompletionCreateOrConnectWithoutUserInput[]
+    upsert?: MissionCompletionUpsertWithWhereUniqueWithoutUserInput | MissionCompletionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MissionCompletionCreateManyUserInputEnvelope
+    set?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
+    disconnect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
+    delete?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
+    connect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
+    update?: MissionCompletionUpdateWithWhereUniqueWithoutUserInput | MissionCompletionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MissionCompletionUpdateManyWithWhereWithoutUserInput | MissionCompletionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MissionCompletionScalarWhereInput | MissionCompletionScalarWhereInput[]
   }
 
-  export type SurveyUncheckedUpdateManyWithoutUserNestedInput = {
+  export type SurveyUpdateManyWithoutUserNestedInput = {
     create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
     upsert?: SurveyUpsertWithWhereUniqueWithoutUserInput | SurveyUpsertWithWhereUniqueWithoutUserInput[]
@@ -11704,18 +11682,12 @@ export namespace Prisma {
     deleteMany?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
   }
 
-  export type MissionCompletionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<MissionCompletionCreateWithoutUserInput, MissionCompletionUncheckedCreateWithoutUserInput> | MissionCompletionCreateWithoutUserInput[] | MissionCompletionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: MissionCompletionCreateOrConnectWithoutUserInput | MissionCompletionCreateOrConnectWithoutUserInput[]
-    upsert?: MissionCompletionUpsertWithWhereUniqueWithoutUserInput | MissionCompletionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: MissionCompletionCreateManyUserInputEnvelope
-    set?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
-    disconnect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
-    delete?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
-    connect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
-    update?: MissionCompletionUpdateWithWhereUniqueWithoutUserInput | MissionCompletionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: MissionCompletionUpdateManyWithWhereWithoutUserInput | MissionCompletionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: MissionCompletionScalarWhereInput | MissionCompletionScalarWhereInput[]
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type BadgeUncheckedUpdateManyWithoutUserNestedInput = {
@@ -11732,18 +11704,18 @@ export namespace Prisma {
     deleteMany?: BadgeScalarWhereInput | BadgeScalarWhereInput[]
   }
 
-  export type FriendUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput> | FriendCreateWithoutUserInput[] | FriendUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: FriendCreateOrConnectWithoutUserInput | FriendCreateOrConnectWithoutUserInput[]
-    upsert?: FriendUpsertWithWhereUniqueWithoutUserInput | FriendUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: FriendCreateManyUserInputEnvelope
-    set?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
-    disconnect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
-    delete?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
-    connect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
-    update?: FriendUpdateWithWhereUniqueWithoutUserInput | FriendUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: FriendUpdateManyWithWhereWithoutUserInput | FriendUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: FriendScalarWhereInput | FriendScalarWhereInput[]
+  export type DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DailyWeeklyProgressCreateWithoutUserInput, DailyWeeklyProgressUncheckedCreateWithoutUserInput> | DailyWeeklyProgressCreateWithoutUserInput[] | DailyWeeklyProgressUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyWeeklyProgressCreateOrConnectWithoutUserInput | DailyWeeklyProgressCreateOrConnectWithoutUserInput[]
+    upsert?: DailyWeeklyProgressUpsertWithWhereUniqueWithoutUserInput | DailyWeeklyProgressUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DailyWeeklyProgressCreateManyUserInputEnvelope
+    set?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
+    disconnect?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
+    delete?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
+    connect?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
+    update?: DailyWeeklyProgressUpdateWithWhereUniqueWithoutUserInput | DailyWeeklyProgressUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DailyWeeklyProgressUpdateManyWithWhereWithoutUserInput | DailyWeeklyProgressUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DailyWeeklyProgressScalarWhereInput | DailyWeeklyProgressScalarWhereInput[]
   }
 
   export type FriendUncheckedUpdateManyWithoutFriendNestedInput = {
@@ -11760,18 +11732,46 @@ export namespace Prisma {
     deleteMany?: FriendScalarWhereInput | FriendScalarWhereInput[]
   }
 
-  export type DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DailyWeeklyProgressCreateWithoutUserInput, DailyWeeklyProgressUncheckedCreateWithoutUserInput> | DailyWeeklyProgressCreateWithoutUserInput[] | DailyWeeklyProgressUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DailyWeeklyProgressCreateOrConnectWithoutUserInput | DailyWeeklyProgressCreateOrConnectWithoutUserInput[]
-    upsert?: DailyWeeklyProgressUpsertWithWhereUniqueWithoutUserInput | DailyWeeklyProgressUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DailyWeeklyProgressCreateManyUserInputEnvelope
-    set?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
-    disconnect?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
-    delete?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
-    connect?: DailyWeeklyProgressWhereUniqueInput | DailyWeeklyProgressWhereUniqueInput[]
-    update?: DailyWeeklyProgressUpdateWithWhereUniqueWithoutUserInput | DailyWeeklyProgressUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DailyWeeklyProgressUpdateManyWithWhereWithoutUserInput | DailyWeeklyProgressUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DailyWeeklyProgressScalarWhereInput | DailyWeeklyProgressScalarWhereInput[]
+  export type FriendUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput> | FriendCreateWithoutUserInput[] | FriendUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FriendCreateOrConnectWithoutUserInput | FriendCreateOrConnectWithoutUserInput[]
+    upsert?: FriendUpsertWithWhereUniqueWithoutUserInput | FriendUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FriendCreateManyUserInputEnvelope
+    set?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
+    disconnect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
+    delete?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
+    connect?: FriendWhereUniqueInput | FriendWhereUniqueInput[]
+    update?: FriendUpdateWithWhereUniqueWithoutUserInput | FriendUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FriendUpdateManyWithWhereWithoutUserInput | FriendUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FriendScalarWhereInput | FriendScalarWhereInput[]
+  }
+
+  export type MissionCompletionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MissionCompletionCreateWithoutUserInput, MissionCompletionUncheckedCreateWithoutUserInput> | MissionCompletionCreateWithoutUserInput[] | MissionCompletionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MissionCompletionCreateOrConnectWithoutUserInput | MissionCompletionCreateOrConnectWithoutUserInput[]
+    upsert?: MissionCompletionUpsertWithWhereUniqueWithoutUserInput | MissionCompletionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MissionCompletionCreateManyUserInputEnvelope
+    set?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
+    disconnect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
+    delete?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
+    connect?: MissionCompletionWhereUniqueInput | MissionCompletionWhereUniqueInput[]
+    update?: MissionCompletionUpdateWithWhereUniqueWithoutUserInput | MissionCompletionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MissionCompletionUpdateManyWithWhereWithoutUserInput | MissionCompletionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MissionCompletionScalarWhereInput | MissionCompletionScalarWhereInput[]
+  }
+
+  export type SurveyUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
+    upsert?: SurveyUpsertWithWhereUniqueWithoutUserInput | SurveyUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SurveyCreateManyUserInputEnvelope
+    set?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    disconnect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    delete?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    update?: SurveyUpdateWithWhereUniqueWithoutUserInput | SurveyUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SurveyUpdateManyWithWhereWithoutUserInput | SurveyUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSurveysInput = {
@@ -11834,16 +11834,16 @@ export namespace Prisma {
     deleteMany?: MissionCompletionScalarWhereInput | MissionCompletionScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutMissionsInput = {
-    create?: XOR<UserCreateWithoutMissionsInput, UserUncheckedCreateWithoutMissionsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutMissionsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type MissionCreateNestedOneWithoutCompletionsInput = {
     create?: XOR<MissionCreateWithoutCompletionsInput, MissionUncheckedCreateWithoutCompletionsInput>
     connectOrCreate?: MissionCreateOrConnectWithoutCompletionsInput
     connect?: MissionWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutMissionsInput = {
+    create?: XOR<UserCreateWithoutMissionsInput, UserUncheckedCreateWithoutMissionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMissionsInput
+    connect?: UserWhereUniqueInput
   }
 
   export type MissionVerificationCreateNestedManyWithoutMissionCompletionInput = {
@@ -11868,20 +11868,20 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type UserUpdateOneRequiredWithoutMissionsNestedInput = {
-    create?: XOR<UserCreateWithoutMissionsInput, UserUncheckedCreateWithoutMissionsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutMissionsInput
-    upsert?: UserUpsertWithoutMissionsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMissionsInput, UserUpdateWithoutMissionsInput>, UserUncheckedUpdateWithoutMissionsInput>
-  }
-
   export type MissionUpdateOneRequiredWithoutCompletionsNestedInput = {
     create?: XOR<MissionCreateWithoutCompletionsInput, MissionUncheckedCreateWithoutCompletionsInput>
     connectOrCreate?: MissionCreateOrConnectWithoutCompletionsInput
     upsert?: MissionUpsertWithoutCompletionsInput
     connect?: MissionWhereUniqueInput
     update?: XOR<XOR<MissionUpdateToOneWithWhereWithoutCompletionsInput, MissionUpdateWithoutCompletionsInput>, MissionUncheckedUpdateWithoutCompletionsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutMissionsNestedInput = {
+    create?: XOR<UserCreateWithoutMissionsInput, UserUncheckedCreateWithoutMissionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMissionsInput
+    upsert?: UserUpsertWithoutMissionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMissionsInput, UserUpdateWithoutMissionsInput>, UserUncheckedUpdateWithoutMissionsInput>
   }
 
   export type MissionVerificationUpdateManyWithoutMissionCompletionNestedInput = {
@@ -11940,24 +11940,16 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBadgesInput, UserUpdateWithoutBadgesInput>, UserUncheckedUpdateWithoutBadgesInput>
   }
 
-  export type UserCreateNestedOneWithoutFriendsInput = {
-    create?: XOR<UserCreateWithoutFriendsInput, UserUncheckedCreateWithoutFriendsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutFriendsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type UserCreateNestedOneWithoutFriendOfInput = {
     create?: XOR<UserCreateWithoutFriendOfInput, UserUncheckedCreateWithoutFriendOfInput>
     connectOrCreate?: UserCreateOrConnectWithoutFriendOfInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutFriendsNestedInput = {
+  export type UserCreateNestedOneWithoutFriendsInput = {
     create?: XOR<UserCreateWithoutFriendsInput, UserUncheckedCreateWithoutFriendsInput>
     connectOrCreate?: UserCreateOrConnectWithoutFriendsInput
-    upsert?: UserUpsertWithoutFriendsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFriendsInput, UserUpdateWithoutFriendsInput>, UserUncheckedUpdateWithoutFriendsInput>
   }
 
   export type UserUpdateOneRequiredWithoutFriendOfNestedInput = {
@@ -11966,6 +11958,14 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutFriendOfInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFriendOfInput, UserUpdateWithoutFriendOfInput>, UserUncheckedUpdateWithoutFriendOfInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutFriendsNestedInput = {
+    create?: XOR<UserCreateWithoutFriendsInput, UserUncheckedCreateWithoutFriendsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFriendsInput
+    upsert?: UserUpsertWithoutFriendsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFriendsInput, UserUpdateWithoutFriendsInput>, UserUncheckedUpdateWithoutFriendsInput>
   }
 
   export type UserCreateNestedOneWithoutDailyProgressInput = {
@@ -12179,28 +12179,93 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type SurveyCreateWithoutUserInput = {
-    age: number
-    gender: string
-    answers: JsonNullValueInput | InputJsonValue
+  export type BadgeCreateWithoutUserInput = {
+    name: string
+    imageUrl?: string | null
     createdAt?: Date | string
   }
 
-  export type SurveyUncheckedCreateWithoutUserInput = {
+  export type BadgeUncheckedCreateWithoutUserInput = {
     id?: number
-    age: number
-    gender: string
-    answers: JsonNullValueInput | InputJsonValue
+    name: string
+    imageUrl?: string | null
     createdAt?: Date | string
   }
 
-  export type SurveyCreateOrConnectWithoutUserInput = {
-    where: SurveyWhereUniqueInput
-    create: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput>
+  export type BadgeCreateOrConnectWithoutUserInput = {
+    where: BadgeWhereUniqueInput
+    create: XOR<BadgeCreateWithoutUserInput, BadgeUncheckedCreateWithoutUserInput>
   }
 
-  export type SurveyCreateManyUserInputEnvelope = {
-    data: SurveyCreateManyUserInput | SurveyCreateManyUserInput[]
+  export type BadgeCreateManyUserInputEnvelope = {
+    data: BadgeCreateManyUserInput | BadgeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DailyWeeklyProgressCreateWithoutUserInput = {
+    date: Date | string
+    type: string
+    data: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type DailyWeeklyProgressUncheckedCreateWithoutUserInput = {
+    id?: number
+    date: Date | string
+    type: string
+    data: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type DailyWeeklyProgressCreateOrConnectWithoutUserInput = {
+    where: DailyWeeklyProgressWhereUniqueInput
+    create: XOR<DailyWeeklyProgressCreateWithoutUserInput, DailyWeeklyProgressUncheckedCreateWithoutUserInput>
+  }
+
+  export type DailyWeeklyProgressCreateManyUserInputEnvelope = {
+    data: DailyWeeklyProgressCreateManyUserInput | DailyWeeklyProgressCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FriendCreateWithoutFriendInput = {
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutFriendsInput
+  }
+
+  export type FriendUncheckedCreateWithoutFriendInput = {
+    id?: number
+    userId: number
+    createdAt?: Date | string
+  }
+
+  export type FriendCreateOrConnectWithoutFriendInput = {
+    where: FriendWhereUniqueInput
+    create: XOR<FriendCreateWithoutFriendInput, FriendUncheckedCreateWithoutFriendInput>
+  }
+
+  export type FriendCreateManyFriendInputEnvelope = {
+    data: FriendCreateManyFriendInput | FriendCreateManyFriendInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FriendCreateWithoutUserInput = {
+    createdAt?: Date | string
+    friend: UserCreateNestedOneWithoutFriendOfInput
+  }
+
+  export type FriendUncheckedCreateWithoutUserInput = {
+    id?: number
+    friendId: number
+    createdAt?: Date | string
+  }
+
+  export type FriendCreateOrConnectWithoutUserInput = {
+    where: FriendWhereUniqueInput
+    create: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput>
+  }
+
+  export type FriendCreateManyUserInputEnvelope = {
+    data: FriendCreateManyUserInput | FriendCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -12233,122 +12298,126 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type BadgeCreateWithoutUserInput = {
-    name: string
-    imageUrl?: string | null
+  export type SurveyCreateWithoutUserInput = {
+    age: number
+    gender: string
+    answers: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
-  export type BadgeUncheckedCreateWithoutUserInput = {
+  export type SurveyUncheckedCreateWithoutUserInput = {
     id?: number
-    name: string
-    imageUrl?: string | null
+    age: number
+    gender: string
+    answers: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
-  export type BadgeCreateOrConnectWithoutUserInput = {
-    where: BadgeWhereUniqueInput
-    create: XOR<BadgeCreateWithoutUserInput, BadgeUncheckedCreateWithoutUserInput>
-  }
-
-  export type BadgeCreateManyUserInputEnvelope = {
-    data: BadgeCreateManyUserInput | BadgeCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type FriendCreateWithoutUserInput = {
-    createdAt?: Date | string
-    friend: UserCreateNestedOneWithoutFriendOfInput
-  }
-
-  export type FriendUncheckedCreateWithoutUserInput = {
-    id?: number
-    friendId: number
-    createdAt?: Date | string
-  }
-
-  export type FriendCreateOrConnectWithoutUserInput = {
-    where: FriendWhereUniqueInput
-    create: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput>
-  }
-
-  export type FriendCreateManyUserInputEnvelope = {
-    data: FriendCreateManyUserInput | FriendCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type FriendCreateWithoutFriendInput = {
-    createdAt?: Date | string
-    user: UserCreateNestedOneWithoutFriendsInput
-  }
-
-  export type FriendUncheckedCreateWithoutFriendInput = {
-    id?: number
-    userId: number
-    createdAt?: Date | string
-  }
-
-  export type FriendCreateOrConnectWithoutFriendInput = {
-    where: FriendWhereUniqueInput
-    create: XOR<FriendCreateWithoutFriendInput, FriendUncheckedCreateWithoutFriendInput>
-  }
-
-  export type FriendCreateManyFriendInputEnvelope = {
-    data: FriendCreateManyFriendInput | FriendCreateManyFriendInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type DailyWeeklyProgressCreateWithoutUserInput = {
-    date: Date | string
-    type: string
-    data: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-  }
-
-  export type DailyWeeklyProgressUncheckedCreateWithoutUserInput = {
-    id?: number
-    date: Date | string
-    type: string
-    data: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-  }
-
-  export type DailyWeeklyProgressCreateOrConnectWithoutUserInput = {
-    where: DailyWeeklyProgressWhereUniqueInput
-    create: XOR<DailyWeeklyProgressCreateWithoutUserInput, DailyWeeklyProgressUncheckedCreateWithoutUserInput>
-  }
-
-  export type DailyWeeklyProgressCreateManyUserInputEnvelope = {
-    data: DailyWeeklyProgressCreateManyUserInput | DailyWeeklyProgressCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type SurveyUpsertWithWhereUniqueWithoutUserInput = {
+  export type SurveyCreateOrConnectWithoutUserInput = {
     where: SurveyWhereUniqueInput
-    update: XOR<SurveyUpdateWithoutUserInput, SurveyUncheckedUpdateWithoutUserInput>
     create: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput>
   }
 
-  export type SurveyUpdateWithWhereUniqueWithoutUserInput = {
-    where: SurveyWhereUniqueInput
-    data: XOR<SurveyUpdateWithoutUserInput, SurveyUncheckedUpdateWithoutUserInput>
+  export type SurveyCreateManyUserInputEnvelope = {
+    data: SurveyCreateManyUserInput | SurveyCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
-  export type SurveyUpdateManyWithWhereWithoutUserInput = {
-    where: SurveyScalarWhereInput
-    data: XOR<SurveyUpdateManyMutationInput, SurveyUncheckedUpdateManyWithoutUserInput>
+  export type BadgeUpsertWithWhereUniqueWithoutUserInput = {
+    where: BadgeWhereUniqueInput
+    update: XOR<BadgeUpdateWithoutUserInput, BadgeUncheckedUpdateWithoutUserInput>
+    create: XOR<BadgeCreateWithoutUserInput, BadgeUncheckedCreateWithoutUserInput>
   }
 
-  export type SurveyScalarWhereInput = {
-    AND?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
-    OR?: SurveyScalarWhereInput[]
-    NOT?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
-    id?: IntFilter<"Survey"> | number
-    userId?: IntFilter<"Survey"> | number
-    age?: IntFilter<"Survey"> | number
-    gender?: StringFilter<"Survey"> | string
-    answers?: JsonFilter<"Survey">
-    createdAt?: DateTimeFilter<"Survey"> | Date | string
+  export type BadgeUpdateWithWhereUniqueWithoutUserInput = {
+    where: BadgeWhereUniqueInput
+    data: XOR<BadgeUpdateWithoutUserInput, BadgeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BadgeUpdateManyWithWhereWithoutUserInput = {
+    where: BadgeScalarWhereInput
+    data: XOR<BadgeUpdateManyMutationInput, BadgeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type BadgeScalarWhereInput = {
+    AND?: BadgeScalarWhereInput | BadgeScalarWhereInput[]
+    OR?: BadgeScalarWhereInput[]
+    NOT?: BadgeScalarWhereInput | BadgeScalarWhereInput[]
+    id?: IntFilter<"Badge"> | number
+    userId?: IntFilter<"Badge"> | number
+    name?: StringFilter<"Badge"> | string
+    imageUrl?: StringNullableFilter<"Badge"> | string | null
+    createdAt?: DateTimeFilter<"Badge"> | Date | string
+  }
+
+  export type DailyWeeklyProgressUpsertWithWhereUniqueWithoutUserInput = {
+    where: DailyWeeklyProgressWhereUniqueInput
+    update: XOR<DailyWeeklyProgressUpdateWithoutUserInput, DailyWeeklyProgressUncheckedUpdateWithoutUserInput>
+    create: XOR<DailyWeeklyProgressCreateWithoutUserInput, DailyWeeklyProgressUncheckedCreateWithoutUserInput>
+  }
+
+  export type DailyWeeklyProgressUpdateWithWhereUniqueWithoutUserInput = {
+    where: DailyWeeklyProgressWhereUniqueInput
+    data: XOR<DailyWeeklyProgressUpdateWithoutUserInput, DailyWeeklyProgressUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DailyWeeklyProgressUpdateManyWithWhereWithoutUserInput = {
+    where: DailyWeeklyProgressScalarWhereInput
+    data: XOR<DailyWeeklyProgressUpdateManyMutationInput, DailyWeeklyProgressUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DailyWeeklyProgressScalarWhereInput = {
+    AND?: DailyWeeklyProgressScalarWhereInput | DailyWeeklyProgressScalarWhereInput[]
+    OR?: DailyWeeklyProgressScalarWhereInput[]
+    NOT?: DailyWeeklyProgressScalarWhereInput | DailyWeeklyProgressScalarWhereInput[]
+    id?: IntFilter<"DailyWeeklyProgress"> | number
+    userId?: IntFilter<"DailyWeeklyProgress"> | number
+    date?: DateTimeFilter<"DailyWeeklyProgress"> | Date | string
+    type?: StringFilter<"DailyWeeklyProgress"> | string
+    data?: JsonFilter<"DailyWeeklyProgress">
+    createdAt?: DateTimeFilter<"DailyWeeklyProgress"> | Date | string
+  }
+
+  export type FriendUpsertWithWhereUniqueWithoutFriendInput = {
+    where: FriendWhereUniqueInput
+    update: XOR<FriendUpdateWithoutFriendInput, FriendUncheckedUpdateWithoutFriendInput>
+    create: XOR<FriendCreateWithoutFriendInput, FriendUncheckedCreateWithoutFriendInput>
+  }
+
+  export type FriendUpdateWithWhereUniqueWithoutFriendInput = {
+    where: FriendWhereUniqueInput
+    data: XOR<FriendUpdateWithoutFriendInput, FriendUncheckedUpdateWithoutFriendInput>
+  }
+
+  export type FriendUpdateManyWithWhereWithoutFriendInput = {
+    where: FriendScalarWhereInput
+    data: XOR<FriendUpdateManyMutationInput, FriendUncheckedUpdateManyWithoutFriendInput>
+  }
+
+  export type FriendScalarWhereInput = {
+    AND?: FriendScalarWhereInput | FriendScalarWhereInput[]
+    OR?: FriendScalarWhereInput[]
+    NOT?: FriendScalarWhereInput | FriendScalarWhereInput[]
+    id?: IntFilter<"Friend"> | number
+    userId?: IntFilter<"Friend"> | number
+    friendId?: IntFilter<"Friend"> | number
+    createdAt?: DateTimeFilter<"Friend"> | Date | string
+  }
+
+  export type FriendUpsertWithWhereUniqueWithoutUserInput = {
+    where: FriendWhereUniqueInput
+    update: XOR<FriendUpdateWithoutUserInput, FriendUncheckedUpdateWithoutUserInput>
+    create: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput>
+  }
+
+  export type FriendUpdateWithWhereUniqueWithoutUserInput = {
+    where: FriendWhereUniqueInput
+    data: XOR<FriendUpdateWithoutUserInput, FriendUncheckedUpdateWithoutUserInput>
+  }
+
+  export type FriendUpdateManyWithWhereWithoutUserInput = {
+    where: FriendScalarWhereInput
+    data: XOR<FriendUpdateManyMutationInput, FriendUncheckedUpdateManyWithoutUserInput>
   }
 
   export type MissionCompletionUpsertWithWhereUniqueWithoutUserInput = {
@@ -12380,101 +12449,32 @@ export namespace Prisma {
     feedback?: StringNullableFilter<"MissionCompletion"> | string | null
   }
 
-  export type BadgeUpsertWithWhereUniqueWithoutUserInput = {
-    where: BadgeWhereUniqueInput
-    update: XOR<BadgeUpdateWithoutUserInput, BadgeUncheckedUpdateWithoutUserInput>
-    create: XOR<BadgeCreateWithoutUserInput, BadgeUncheckedCreateWithoutUserInput>
+  export type SurveyUpsertWithWhereUniqueWithoutUserInput = {
+    where: SurveyWhereUniqueInput
+    update: XOR<SurveyUpdateWithoutUserInput, SurveyUncheckedUpdateWithoutUserInput>
+    create: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput>
   }
 
-  export type BadgeUpdateWithWhereUniqueWithoutUserInput = {
-    where: BadgeWhereUniqueInput
-    data: XOR<BadgeUpdateWithoutUserInput, BadgeUncheckedUpdateWithoutUserInput>
+  export type SurveyUpdateWithWhereUniqueWithoutUserInput = {
+    where: SurveyWhereUniqueInput
+    data: XOR<SurveyUpdateWithoutUserInput, SurveyUncheckedUpdateWithoutUserInput>
   }
 
-  export type BadgeUpdateManyWithWhereWithoutUserInput = {
-    where: BadgeScalarWhereInput
-    data: XOR<BadgeUpdateManyMutationInput, BadgeUncheckedUpdateManyWithoutUserInput>
+  export type SurveyUpdateManyWithWhereWithoutUserInput = {
+    where: SurveyScalarWhereInput
+    data: XOR<SurveyUpdateManyMutationInput, SurveyUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type BadgeScalarWhereInput = {
-    AND?: BadgeScalarWhereInput | BadgeScalarWhereInput[]
-    OR?: BadgeScalarWhereInput[]
-    NOT?: BadgeScalarWhereInput | BadgeScalarWhereInput[]
-    id?: IntFilter<"Badge"> | number
-    userId?: IntFilter<"Badge"> | number
-    name?: StringFilter<"Badge"> | string
-    imageUrl?: StringNullableFilter<"Badge"> | string | null
-    createdAt?: DateTimeFilter<"Badge"> | Date | string
-  }
-
-  export type FriendUpsertWithWhereUniqueWithoutUserInput = {
-    where: FriendWhereUniqueInput
-    update: XOR<FriendUpdateWithoutUserInput, FriendUncheckedUpdateWithoutUserInput>
-    create: XOR<FriendCreateWithoutUserInput, FriendUncheckedCreateWithoutUserInput>
-  }
-
-  export type FriendUpdateWithWhereUniqueWithoutUserInput = {
-    where: FriendWhereUniqueInput
-    data: XOR<FriendUpdateWithoutUserInput, FriendUncheckedUpdateWithoutUserInput>
-  }
-
-  export type FriendUpdateManyWithWhereWithoutUserInput = {
-    where: FriendScalarWhereInput
-    data: XOR<FriendUpdateManyMutationInput, FriendUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type FriendScalarWhereInput = {
-    AND?: FriendScalarWhereInput | FriendScalarWhereInput[]
-    OR?: FriendScalarWhereInput[]
-    NOT?: FriendScalarWhereInput | FriendScalarWhereInput[]
-    id?: IntFilter<"Friend"> | number
-    userId?: IntFilter<"Friend"> | number
-    friendId?: IntFilter<"Friend"> | number
-    createdAt?: DateTimeFilter<"Friend"> | Date | string
-  }
-
-  export type FriendUpsertWithWhereUniqueWithoutFriendInput = {
-    where: FriendWhereUniqueInput
-    update: XOR<FriendUpdateWithoutFriendInput, FriendUncheckedUpdateWithoutFriendInput>
-    create: XOR<FriendCreateWithoutFriendInput, FriendUncheckedCreateWithoutFriendInput>
-  }
-
-  export type FriendUpdateWithWhereUniqueWithoutFriendInput = {
-    where: FriendWhereUniqueInput
-    data: XOR<FriendUpdateWithoutFriendInput, FriendUncheckedUpdateWithoutFriendInput>
-  }
-
-  export type FriendUpdateManyWithWhereWithoutFriendInput = {
-    where: FriendScalarWhereInput
-    data: XOR<FriendUpdateManyMutationInput, FriendUncheckedUpdateManyWithoutFriendInput>
-  }
-
-  export type DailyWeeklyProgressUpsertWithWhereUniqueWithoutUserInput = {
-    where: DailyWeeklyProgressWhereUniqueInput
-    update: XOR<DailyWeeklyProgressUpdateWithoutUserInput, DailyWeeklyProgressUncheckedUpdateWithoutUserInput>
-    create: XOR<DailyWeeklyProgressCreateWithoutUserInput, DailyWeeklyProgressUncheckedCreateWithoutUserInput>
-  }
-
-  export type DailyWeeklyProgressUpdateWithWhereUniqueWithoutUserInput = {
-    where: DailyWeeklyProgressWhereUniqueInput
-    data: XOR<DailyWeeklyProgressUpdateWithoutUserInput, DailyWeeklyProgressUncheckedUpdateWithoutUserInput>
-  }
-
-  export type DailyWeeklyProgressUpdateManyWithWhereWithoutUserInput = {
-    where: DailyWeeklyProgressScalarWhereInput
-    data: XOR<DailyWeeklyProgressUpdateManyMutationInput, DailyWeeklyProgressUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type DailyWeeklyProgressScalarWhereInput = {
-    AND?: DailyWeeklyProgressScalarWhereInput | DailyWeeklyProgressScalarWhereInput[]
-    OR?: DailyWeeklyProgressScalarWhereInput[]
-    NOT?: DailyWeeklyProgressScalarWhereInput | DailyWeeklyProgressScalarWhereInput[]
-    id?: IntFilter<"DailyWeeklyProgress"> | number
-    userId?: IntFilter<"DailyWeeklyProgress"> | number
-    date?: DateTimeFilter<"DailyWeeklyProgress"> | Date | string
-    type?: StringFilter<"DailyWeeklyProgress"> | string
-    data?: JsonFilter<"DailyWeeklyProgress">
-    createdAt?: DateTimeFilter<"DailyWeeklyProgress"> | Date | string
+  export type SurveyScalarWhereInput = {
+    AND?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
+    OR?: SurveyScalarWhereInput[]
+    NOT?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
+    id?: IntFilter<"Survey"> | number
+    userId?: IntFilter<"Survey"> | number
+    age?: IntFilter<"Survey"> | number
+    gender?: StringFilter<"Survey"> | string
+    answers?: JsonFilter<"Survey">
+    createdAt?: DateTimeFilter<"Survey"> | Date | string
   }
 
   export type UserCreateWithoutSurveysInput = {
@@ -12483,11 +12483,11 @@ export namespace Prisma {
     nickname: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    missions?: MissionCompletionCreateNestedManyWithoutUserInput
     badges?: BadgeCreateNestedManyWithoutUserInput
-    friends?: FriendCreateNestedManyWithoutUserInput
-    friendOf?: FriendCreateNestedManyWithoutFriendInput
     dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
+    friendOf?: FriendCreateNestedManyWithoutFriendInput
+    friends?: FriendCreateNestedManyWithoutUserInput
+    missions?: MissionCompletionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSurveysInput = {
@@ -12497,11 +12497,11 @@ export namespace Prisma {
     nickname: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
-    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
-    friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
+    friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
+    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSurveysInput = {
@@ -12526,11 +12526,11 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
     badges?: BadgeUpdateManyWithoutUserNestedInput
-    friends?: FriendUpdateManyWithoutUserNestedInput
-    friendOf?: FriendUpdateManyWithoutFriendNestedInput
     dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
+    friendOf?: FriendUpdateManyWithoutFriendNestedInput
+    friends?: FriendUpdateManyWithoutUserNestedInput
+    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSurveysInput = {
@@ -12540,11 +12540,11 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
-    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
-    friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
+    friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
+    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MissionCompletionCreateWithoutMissionInput = {
@@ -12592,38 +12592,6 @@ export namespace Prisma {
     data: XOR<MissionCompletionUpdateManyMutationInput, MissionCompletionUncheckedUpdateManyWithoutMissionInput>
   }
 
-  export type UserCreateWithoutMissionsInput = {
-    email: string
-    password: string
-    nickname: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    surveys?: SurveyCreateNestedManyWithoutUserInput
-    badges?: BadgeCreateNestedManyWithoutUserInput
-    friends?: FriendCreateNestedManyWithoutUserInput
-    friendOf?: FriendCreateNestedManyWithoutFriendInput
-    dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutMissionsInput = {
-    id?: number
-    email: string
-    password: string
-    nickname: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
-    badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
-    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
-    friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
-    dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutMissionsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutMissionsInput, UserUncheckedCreateWithoutMissionsInput>
-  }
-
   export type MissionCreateWithoutCompletionsInput = {
     title: string
     description: string
@@ -12648,6 +12616,38 @@ export namespace Prisma {
     create: XOR<MissionCreateWithoutCompletionsInput, MissionUncheckedCreateWithoutCompletionsInput>
   }
 
+  export type UserCreateWithoutMissionsInput = {
+    email: string
+    password: string
+    nickname: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    badges?: BadgeCreateNestedManyWithoutUserInput
+    dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
+    friendOf?: FriendCreateNestedManyWithoutFriendInput
+    friends?: FriendCreateNestedManyWithoutUserInput
+    surveys?: SurveyCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMissionsInput = {
+    id?: number
+    email: string
+    password: string
+    nickname: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
+    dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
+    friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
+    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMissionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMissionsInput, UserUncheckedCreateWithoutMissionsInput>
+  }
+
   export type MissionVerificationCreateWithoutMissionCompletionInput = {
     type: string
     data: JsonNullValueInput | InputJsonValue
@@ -12669,44 +12669,6 @@ export namespace Prisma {
   export type MissionVerificationCreateManyMissionCompletionInputEnvelope = {
     data: MissionVerificationCreateManyMissionCompletionInput | MissionVerificationCreateManyMissionCompletionInput[]
     skipDuplicates?: boolean
-  }
-
-  export type UserUpsertWithoutMissionsInput = {
-    update: XOR<UserUpdateWithoutMissionsInput, UserUncheckedUpdateWithoutMissionsInput>
-    create: XOR<UserCreateWithoutMissionsInput, UserUncheckedCreateWithoutMissionsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutMissionsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutMissionsInput, UserUncheckedUpdateWithoutMissionsInput>
-  }
-
-  export type UserUpdateWithoutMissionsInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    nickname?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
-    badges?: BadgeUpdateManyWithoutUserNestedInput
-    friends?: FriendUpdateManyWithoutUserNestedInput
-    friendOf?: FriendUpdateManyWithoutFriendNestedInput
-    dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutMissionsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    nickname?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
-    badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
-    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
-    friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
-    dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MissionUpsertWithoutCompletionsInput = {
@@ -12737,6 +12699,44 @@ export namespace Prisma {
     verificationType?: StringFieldUpdateOperationsInput | string
     verificationData?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutMissionsInput = {
+    update: XOR<UserUpdateWithoutMissionsInput, UserUncheckedUpdateWithoutMissionsInput>
+    create: XOR<UserCreateWithoutMissionsInput, UserUncheckedCreateWithoutMissionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMissionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMissionsInput, UserUncheckedUpdateWithoutMissionsInput>
+  }
+
+  export type UserUpdateWithoutMissionsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    nickname?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    badges?: BadgeUpdateManyWithoutUserNestedInput
+    dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
+    friendOf?: FriendUpdateManyWithoutFriendNestedInput
+    friends?: FriendUpdateManyWithoutUserNestedInput
+    surveys?: SurveyUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMissionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    nickname?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
+    dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
+    friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
+    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MissionVerificationUpsertWithWhereUniqueWithoutMissionCompletionInput = {
@@ -12771,8 +12771,8 @@ export namespace Prisma {
     verificationData: JsonNullValueInput | InputJsonValue
     status: $Enums.MissionStatus
     feedback?: string | null
-    user: UserCreateNestedOneWithoutMissionsInput
     mission: MissionCreateNestedOneWithoutCompletionsInput
+    user: UserCreateNestedOneWithoutMissionsInput
   }
 
   export type MissionCompletionUncheckedCreateWithoutVerificationsInput = {
@@ -12806,8 +12806,8 @@ export namespace Prisma {
     verificationData?: JsonNullValueInput | InputJsonValue
     status?: EnumMissionStatusFieldUpdateOperationsInput | $Enums.MissionStatus
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutMissionsNestedInput
     mission?: MissionUpdateOneRequiredWithoutCompletionsNestedInput
+    user?: UserUpdateOneRequiredWithoutMissionsNestedInput
   }
 
   export type MissionCompletionUncheckedUpdateWithoutVerificationsInput = {
@@ -12826,11 +12826,11 @@ export namespace Prisma {
     nickname: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    surveys?: SurveyCreateNestedManyWithoutUserInput
-    missions?: MissionCompletionCreateNestedManyWithoutUserInput
-    friends?: FriendCreateNestedManyWithoutUserInput
-    friendOf?: FriendCreateNestedManyWithoutFriendInput
     dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
+    friendOf?: FriendCreateNestedManyWithoutFriendInput
+    friends?: FriendCreateNestedManyWithoutUserInput
+    missions?: MissionCompletionCreateNestedManyWithoutUserInput
+    surveys?: SurveyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBadgesInput = {
@@ -12840,11 +12840,11 @@ export namespace Prisma {
     nickname: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
-    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
-    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
-    friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
     dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
+    friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
+    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBadgesInput = {
@@ -12869,11 +12869,11 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
-    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
-    friends?: FriendUpdateManyWithoutUserNestedInput
-    friendOf?: FriendUpdateManyWithoutFriendNestedInput
     dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
+    friendOf?: FriendUpdateManyWithoutFriendNestedInput
+    friends?: FriendUpdateManyWithoutUserNestedInput
+    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
+    surveys?: SurveyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBadgesInput = {
@@ -12883,43 +12883,11 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
-    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
-    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
-    friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
     dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserCreateWithoutFriendsInput = {
-    email: string
-    password: string
-    nickname: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    surveys?: SurveyCreateNestedManyWithoutUserInput
-    missions?: MissionCompletionCreateNestedManyWithoutUserInput
-    badges?: BadgeCreateNestedManyWithoutUserInput
-    friendOf?: FriendCreateNestedManyWithoutFriendInput
-    dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutFriendsInput = {
-    id?: number
-    email: string
-    password: string
-    nickname: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
-    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
-    badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
-    friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
-    dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutFriendsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutFriendsInput, UserUncheckedCreateWithoutFriendsInput>
+    friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
+    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutFriendOfInput = {
@@ -12928,11 +12896,11 @@ export namespace Prisma {
     nickname: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    surveys?: SurveyCreateNestedManyWithoutUserInput
-    missions?: MissionCompletionCreateNestedManyWithoutUserInput
     badges?: BadgeCreateNestedManyWithoutUserInput
-    friends?: FriendCreateNestedManyWithoutUserInput
     dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
+    friends?: FriendCreateNestedManyWithoutUserInput
+    missions?: MissionCompletionCreateNestedManyWithoutUserInput
+    surveys?: SurveyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFriendOfInput = {
@@ -12942,11 +12910,11 @@ export namespace Prisma {
     nickname: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
-    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
-    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
+    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFriendOfInput = {
@@ -12954,42 +12922,36 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutFriendOfInput, UserUncheckedCreateWithoutFriendOfInput>
   }
 
-  export type UserUpsertWithoutFriendsInput = {
-    update: XOR<UserUpdateWithoutFriendsInput, UserUncheckedUpdateWithoutFriendsInput>
+  export type UserCreateWithoutFriendsInput = {
+    email: string
+    password: string
+    nickname: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    badges?: BadgeCreateNestedManyWithoutUserInput
+    dailyProgress?: DailyWeeklyProgressCreateNestedManyWithoutUserInput
+    friendOf?: FriendCreateNestedManyWithoutFriendInput
+    missions?: MissionCompletionCreateNestedManyWithoutUserInput
+    surveys?: SurveyCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutFriendsInput = {
+    id?: number
+    email: string
+    password: string
+    nickname: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
+    dailyProgress?: DailyWeeklyProgressUncheckedCreateNestedManyWithoutUserInput
+    friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
+    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutFriendsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutFriendsInput, UserUncheckedCreateWithoutFriendsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutFriendsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutFriendsInput, UserUncheckedUpdateWithoutFriendsInput>
-  }
-
-  export type UserUpdateWithoutFriendsInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    nickname?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
-    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
-    badges?: BadgeUpdateManyWithoutUserNestedInput
-    friendOf?: FriendUpdateManyWithoutFriendNestedInput
-    dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutFriendsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    nickname?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
-    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
-    badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
-    friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
-    dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutFriendOfInput = {
@@ -13009,11 +12971,11 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
-    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
     badges?: BadgeUpdateManyWithoutUserNestedInput
-    friends?: FriendUpdateManyWithoutUserNestedInput
     dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
+    friends?: FriendUpdateManyWithoutUserNestedInput
+    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
+    surveys?: SurveyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFriendOfInput = {
@@ -13023,11 +12985,49 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
-    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
-    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
+    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutFriendsInput = {
+    update: XOR<UserUpdateWithoutFriendsInput, UserUncheckedUpdateWithoutFriendsInput>
+    create: XOR<UserCreateWithoutFriendsInput, UserUncheckedCreateWithoutFriendsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFriendsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFriendsInput, UserUncheckedUpdateWithoutFriendsInput>
+  }
+
+  export type UserUpdateWithoutFriendsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    nickname?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    badges?: BadgeUpdateManyWithoutUserNestedInput
+    dailyProgress?: DailyWeeklyProgressUpdateManyWithoutUserNestedInput
+    friendOf?: FriendUpdateManyWithoutFriendNestedInput
+    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
+    surveys?: SurveyUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFriendsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    nickname?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
+    dailyProgress?: DailyWeeklyProgressUncheckedUpdateManyWithoutUserNestedInput
+    friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
+    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDailyProgressInput = {
@@ -13036,11 +13036,11 @@ export namespace Prisma {
     nickname: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    surveys?: SurveyCreateNestedManyWithoutUserInput
-    missions?: MissionCompletionCreateNestedManyWithoutUserInput
     badges?: BadgeCreateNestedManyWithoutUserInput
-    friends?: FriendCreateNestedManyWithoutUserInput
     friendOf?: FriendCreateNestedManyWithoutFriendInput
+    friends?: FriendCreateNestedManyWithoutUserInput
+    missions?: MissionCompletionCreateNestedManyWithoutUserInput
+    surveys?: SurveyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDailyProgressInput = {
@@ -13050,11 +13050,11 @@ export namespace Prisma {
     nickname: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
-    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
     badges?: BadgeUncheckedCreateNestedManyWithoutUserInput
-    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
     friendOf?: FriendUncheckedCreateNestedManyWithoutFriendInput
+    friends?: FriendUncheckedCreateNestedManyWithoutUserInput
+    missions?: MissionCompletionUncheckedCreateNestedManyWithoutUserInput
+    surveys?: SurveyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDailyProgressInput = {
@@ -13079,11 +13079,11 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    surveys?: SurveyUpdateManyWithoutUserNestedInput
-    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
     badges?: BadgeUpdateManyWithoutUserNestedInput
-    friends?: FriendUpdateManyWithoutUserNestedInput
     friendOf?: FriendUpdateManyWithoutFriendNestedInput
+    friends?: FriendUpdateManyWithoutUserNestedInput
+    missions?: MissionCompletionUpdateManyWithoutUserNestedInput
+    surveys?: SurveyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyProgressInput = {
@@ -13093,18 +13093,37 @@ export namespace Prisma {
     nickname?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
-    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
     badges?: BadgeUncheckedUpdateManyWithoutUserNestedInput
-    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
     friendOf?: FriendUncheckedUpdateManyWithoutFriendNestedInput
+    friends?: FriendUncheckedUpdateManyWithoutUserNestedInput
+    missions?: MissionCompletionUncheckedUpdateManyWithoutUserNestedInput
+    surveys?: SurveyUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type SurveyCreateManyUserInput = {
+  export type BadgeCreateManyUserInput = {
     id?: number
-    age: number
-    gender: string
-    answers: JsonNullValueInput | InputJsonValue
+    name: string
+    imageUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DailyWeeklyProgressCreateManyUserInput = {
+    id?: number
+    date: Date | string
+    type: string
+    data: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type FriendCreateManyFriendInput = {
+    id?: number
+    userId: number
+    createdAt?: Date | string
+  }
+
+  export type FriendCreateManyUserInput = {
+    id?: number
+    friendId: number
     createdAt?: Date | string
   }
 
@@ -13117,53 +13136,88 @@ export namespace Prisma {
     feedback?: string | null
   }
 
-  export type BadgeCreateManyUserInput = {
+  export type SurveyCreateManyUserInput = {
     id?: number
-    name: string
-    imageUrl?: string | null
+    age: number
+    gender: string
+    answers: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
 
-  export type FriendCreateManyUserInput = {
-    id?: number
-    friendId: number
-    createdAt?: Date | string
-  }
-
-  export type FriendCreateManyFriendInput = {
-    id?: number
-    userId: number
-    createdAt?: Date | string
-  }
-
-  export type DailyWeeklyProgressCreateManyUserInput = {
-    id?: number
-    date: Date | string
-    type: string
-    data: JsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-  }
-
-  export type SurveyUpdateWithoutUserInput = {
-    age?: IntFieldUpdateOperationsInput | number
-    gender?: StringFieldUpdateOperationsInput | string
-    answers?: JsonNullValueInput | InputJsonValue
+  export type BadgeUpdateWithoutUserInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SurveyUncheckedUpdateWithoutUserInput = {
+  export type BadgeUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    age?: IntFieldUpdateOperationsInput | number
-    gender?: StringFieldUpdateOperationsInput | string
-    answers?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SurveyUncheckedUpdateManyWithoutUserInput = {
+  export type BadgeUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    age?: IntFieldUpdateOperationsInput | number
-    gender?: StringFieldUpdateOperationsInput | string
-    answers?: JsonNullValueInput | InputJsonValue
+    name?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyWeeklyProgressUpdateWithoutUserInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyWeeklyProgressUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyWeeklyProgressUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FriendUpdateWithoutFriendInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutFriendsNestedInput
+  }
+
+  export type FriendUncheckedUpdateWithoutFriendInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FriendUncheckedUpdateManyWithoutFriendInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FriendUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    friend?: UserUpdateOneRequiredWithoutFriendOfNestedInput
+  }
+
+  export type FriendUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    friendId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FriendUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    friendId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13195,80 +13249,26 @@ export namespace Prisma {
     feedback?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type BadgeUpdateWithoutUserInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+  export type SurveyUpdateWithoutUserInput = {
+    age?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    answers?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type BadgeUncheckedUpdateWithoutUserInput = {
+  export type SurveyUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    answers?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type BadgeUncheckedUpdateManyWithoutUserInput = {
+  export type SurveyUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FriendUpdateWithoutUserInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    friend?: UserUpdateOneRequiredWithoutFriendOfNestedInput
-  }
-
-  export type FriendUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    friendId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FriendUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    friendId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FriendUpdateWithoutFriendInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutFriendsNestedInput
-  }
-
-  export type FriendUncheckedUpdateWithoutFriendInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FriendUncheckedUpdateManyWithoutFriendInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DailyWeeklyProgressUpdateWithoutUserInput = {
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: StringFieldUpdateOperationsInput | string
-    data?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DailyWeeklyProgressUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: StringFieldUpdateOperationsInput | string
-    data?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DailyWeeklyProgressUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    type?: StringFieldUpdateOperationsInput | string
-    data?: JsonNullValueInput | InputJsonValue
+    age?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    answers?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
