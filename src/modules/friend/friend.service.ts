@@ -32,9 +32,17 @@ export class FriendService {
   async requestFriend(fromUserId: number, toUserId: number) {
     if (fromUserId === toUserId)
       throw new ForbiddenException('자기 자신에게 요청 불가');
-    return this.prisma.friendRequest.create({
+
+    const result = await this.prisma.friendRequest.create({
       data: { fromUserId, toUserId, status: 'REQUESTED' },
     });
+    return {
+      requestId: result.id,
+      fromUserId: result.fromUserId,
+      toUserId: result.toUserId,
+      status: result.status,
+      createdAt: result.createdAt,
+    };
   }
 
   // 3. 친구 요청 수락/거절
