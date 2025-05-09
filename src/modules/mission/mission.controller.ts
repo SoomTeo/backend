@@ -11,6 +11,9 @@ import {
 import { MissionService } from './mission.service';
 import { CreateMissionByTypeDto } from './dto/create-mission-by-type.dto';
 import { JwtAuthGuard } from '@src/modules/auth/jwt-auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UseInterceptors, UploadedFile } from '@nestjs/common';
+import { CompleteMissionDto } from './dto/complete-mission.dto';
 
 @Controller('mission')
 @UseGuards(JwtAuthGuard)
@@ -38,15 +41,18 @@ export class MissionController {
   }
 
   @Post(':id/complete')
+  @UseInterceptors(FileInterceptor('receiptImage')) // RECEIPT 타입일 때만
   async completeMission(
     @Req() req,
     @Param('id') id: number,
-    @Body() body: any
+    @Body() dto: CompleteMissionDto,
+    @UploadedFile() file?: Express.Multer.File
   ) {
     return this.missionService.completeMission(
       req.user.userId,
       Number(id),
-      body.verificationData
+      dto,
+      file
     );
   }
 }
