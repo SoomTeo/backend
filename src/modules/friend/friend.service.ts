@@ -104,4 +104,12 @@ export class FriendService {
       select: { id: true, nickname: true },
     });
   }
+
+  // 나에게 친구 요청한 사람들의 목록
+  async getFriendRequests(userId: number) {
+    const requests = await this.prisma.friendRequest.findMany({
+      where: { toUserId: userId, status: 'REQUESTED' },
+    });
+    return requests;
+  }
 }
