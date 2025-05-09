@@ -13,3 +13,119 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+enum MissionType {
+  RECEIPT
+  GPS
+  VOICE
+  BUTTON
+  DIARY
+}
+
+enum MissionStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+model User {
+  id            Int                   @id @default(autoincrement())
+  email         String                @unique
+  password      String
+  nickname      String
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+  surveys       Survey[]
+  missions      MissionCompletion[]
+  badges        Badge[]
+  friends       Friend[]              @relation("UserFriends")
+  friendOf      Friend[]              @relation("FriendOf")
+  dailyProgress DailyWeeklyProgress[]
+
+  @@map("user")
+}
+
+model Survey {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  age       Int
+  gender    String
+  answers   Json
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("survey")
+}
+
+model Mission {
+  id                Int                @id @default(autoincrement())
+  title            String
+  description      String
+  type             MissionType
+  verificationType String
+  verificationData Json
+  createdAt        DateTime           @default(now())
+  completions      MissionCompletion[]
+
+  @@map("mission")
+}
+
+model MissionCompletion {
+  id               Int            @id @default(autoincrement())
+  userId          Int
+  missionId       Int
+  completedAt     DateTime       @default(now())
+  verificationData Json
+  status          MissionStatus
+  feedback        String?
+  user            User           @relation(fields: [userId], references: [id])
+  mission         Mission        @relation(fields: [missionId], references: [id])
+  verifications   MissionVerification[]
+
+  @@map("missionCompletion")
+}
+
+model MissionVerification {
+  id                  Int               @id @default(autoincrement())
+  missionCompletionId Int
+  type               String
+  data               Json
+  createdAt          DateTime          @default(now())
+  missionCompletion  MissionCompletion @relation(fields: [missionCompletionId], references: [id])
+
+  @@map("missionVerification")
+}
+
+model Badge {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  name      String
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("badge")
+}
+
+model Friend {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  friendId  Int
+  createdAt DateTime @default(now())
+  user      User     @relation("UserFriends", fields: [userId], references: [id])
+  friend    User     @relation("FriendOf", fields: [friendId], references: [id])
+
+  @@map("friend")
+}
+
+model DailyWeeklyProgress {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  date      DateTime
+  type      String
+  data      Json
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("dailyWeeklyProgress")
+}
