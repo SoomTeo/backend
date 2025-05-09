@@ -11,4 +11,9 @@ export class UserController {
   async getProfile(@Req() req) {
     return this.userService.getProfile(req.user.userId);
   }
+
+  @Get('progress')
+  async getProgress(@Req() req) {
+    return this.userService.getProgress(req.user.userId);
+  }
 }

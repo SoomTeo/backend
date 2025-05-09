@@ -1,7 +1,44 @@
-import { PrismaClient } from '../generated/prisma';
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+  const userId = 1;
+  // 9일간 데이터 (오늘 포함, progress: 10~90)
+  for (let i = 0; i < 9; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() - (8 - i));
+    date.setHours(0, 0, 0, 0);
+
+    await prisma.dailyWeeklyProgress.create({
+      data: {
+        userId,
+        type: 'daily',
+        progress: 10 * (i + 1),
+        targetPoints: 100,
+        date,
+      },
+    });
+  }
+
+  // 9주간 데이터 (progress: 20~180, 주마다 월요일 기준)
+  for (let i = 0; i < 9; i++) {
+    const date = new Date();
+    // 이번주 월요일에서 i주 전으로 이동
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    date.setDate(now.getDate() - dayOfWeek - 7 * (8 - i));
+    date.setHours(0, 0, 0, 0);
+
+    await prisma.dailyWeeklyProgress.create({
+      data: {
+        userId,
+        type: 'daily',
+        progress: 20 * (i + 1),
+        targetPoints: 100,
+        date,
+      },
+    });
+  }
   const questions = [
     {
       order: 1,
