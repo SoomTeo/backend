@@ -76,21 +76,48 @@ export class MissionService {
     ]);
     let missionData;
     try {
-      missionData = JSON.parse(gptResult.content);
+      const content = gptResult.content
+        .replace(/```json|```/g, '')
+        .replace(/\/\/.*$/gm, '')
+        .trim();
+
+      missionData = JSON.parse(content);
     } catch {
+      console.error('GPT 응답 파싱 실패:', gptResult.content);
       throw new Error('GPT 응답 파싱 실패');
     }
 
+    // GPS 미션일 경우 verificationData에 기준값 저장
+    let verificationData = missionData.verificationData ?? {};
+    if (dto.type === 'GPS') {
+      verificationData = {
+        ...verificationData,
+        minDuration: missionData.minDuration,
+        minDistance: missionData.minDistance,
+      };
+    }
+
     // 4. DB 저장
-    return this.prisma.mission.create({
+    const created = await this.prisma.mission.create({
       data: {
-        ...missionData,
+        title: missionData.title,
+        description: missionData.description,
         type: dto.type as MissionType,
         userId,
         verificationType: dto.type,
-        verificationData: missionData.verificationData ?? {},
+        verificationData,
       },
     });
+
+    // GPS 미션일 경우 minDuration, minDistance를 리턴값에 포함
+    if (dto.type === 'GPS') {
+      return {
+        ...created,
+        minDuration: verificationData.minDuration,
+        minDistance: verificationData.minDistance,
+      };
+    }
+    return created;
   }
 
   async deleteMission(userId: number, id: number) {
@@ -123,6 +150,9 @@ export class MissionService {
     switch (mission.type) {
       case 'RECEIPT':
         // 1. OCR (GPT API 또는 외부 OCR API)
+         if (!file || !file.path) {
+           throw new BadRequestException('영수증 이미지 파일이 필요합니다.');
+         }
         const ocrText = await callOcrApi(file);
         feedback = `영수증에서 '${ocrText}'를 확인했습니다. '${ocrText}' 갔다오셨군요!`;
         verificationData = { ocrText };
@@ -132,13 +162,13 @@ export class MissionService {
         if (!dto.isSuccess) {
           throw new ForbiddenException('미션 조건을 충족하지 못했습니다.');
         }
-        const { startTime, endTime, path } = dto;
-        const duration =
-          (new Date(endTime).getTime() - new Date(startTime).getTime()) /
-          1000 /
-          60;
-        feedback = `총 ${duration.toFixed(0)}분 산책 성공!`;
-        verificationData = { path, duration };
+        // const { startTime, endTime, path } = dto;
+        // const duration =
+        //   (new Date(endTime).getTime() - new Date(startTime).getTime()) /
+        //   1000 /
+        //   60;
+        feedback = `산책 미션 성공!`;
+        verificationData = {};
         break;
       case 'VOICE':
         // 3. 음성 인식 미션 (클라이언트에서 성공 여부 판단)

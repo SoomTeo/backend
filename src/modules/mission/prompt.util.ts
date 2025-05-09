@@ -18,6 +18,31 @@ export function makeMissionPrompt({
       high: `은둔 성향 높음 - 아주 쉬운 미션(집 근처 짧은 산책, 집안에서 할 수 있는 작은 행동 등)만 추천해줘. 절대 부담스럽거나 외부 활동이 많은 미션은 주지 마.`,
     }[level] || '';
 
+  if (type === 'GPS') {
+    return `
+너는 히키코모리 탈출을 돕는 상담가야.
+아래 사용자 정보를 참고해서, GPS 유형의 미션을 1개 생성해줘.
+
+- 나이: ${age}
+- 성별: ${gender}
+- 은둔 성향: ${level} (${levelDesc})
+- 설문 점수: ${score}
+
+미션 유형 설명:
+GPS: 30분 이상 산책하기 등 GPS로 확인 가능한 미션
+
+미션 예시(형식):
+{
+  "title": "공원에서 20분 산책하기",
+  "description": "집 근처 공원에서 20분 이상 산책하고, 최소 1200m를 걸어보세요.",
+  "type": "GPS",
+  "minDuration": 20, // 최소 산책 시간(분)
+  "minDistance": 1200 // 최소 거리(m)
+}
+반드시 minDuration(분), minDistance(m)를 포함해서 JSON으로 반환해줘.
+`.trim();
+  }
+
   return `
 너는 히키코모리 탈출을 돕는 상담가야.
 아래 사용자 정보를 참고해서, ${type} 유형의 미션을 1개 생성해줘.
@@ -41,5 +66,6 @@ DIARY: 일기를 작성하고 제출하는 미션
   "type": "${type}"
   단, type이 VOICE일 경우 title을 반복해야할 문장으로 반환해줘 12글자 이내였으면 좋겠어
 }
+  
 `.trim();
 }

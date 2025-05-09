@@ -1,6 +1,5 @@
 import { createChatCompletion } from '@src/common/utils/openai';
 import OpenAI from 'openai';
-import * as fs from 'fs';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -9,8 +8,11 @@ const openai = new OpenAI({
 // OCR API 호출 (GPT Vision API 사용)
 export async function callOcrApi(file: Express.Multer.File): Promise<string> {
   try {
-    // 파일을 base64로 인코딩
-    const base64Image = fs.readFileSync(file.path, { encoding: 'base64' });
+    if (!file || !file.buffer) {
+      throw new Error('영수증 이미지 파일이 필요합니다.');
+    }
+    // memoryStorage: file.buffer 사용
+    const base64Image = file.buffer.toString('base64');
 
     // GPT Vision API 호출
     const response = await openai.chat.completions.create({
@@ -38,9 +40,6 @@ export async function callOcrApi(file: Express.Multer.File): Promise<string> {
     // 응답 파싱
     const result = response.choices[0].message.content;
     const parsedResult = JSON.parse(result);
-
-    // 임시 파일 삭제
-    fs.unlinkSync(file.path);
 
     return `${parsedResult.storeName} (${parsedResult.date})`;
   } catch (error) {
