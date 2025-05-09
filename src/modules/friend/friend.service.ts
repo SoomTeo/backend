@@ -115,7 +115,14 @@ export class FriendService {
   async getFriendRequests(userId: number) {
     const requests = await this.prisma.friendRequest.findMany({
       where: { toUserId: userId, status: 'REQUESTED' },
+      include: { fromUser: true },
     });
-    return requests;
+    return requests.map(r => ({
+      id: r.id,
+      fromUserId: r.fromUserId,
+      fromUserNickname: r.fromUser.nickname,
+      toUserId: r.toUserId,
+      status: r.status,
+    }));
   }
 }
