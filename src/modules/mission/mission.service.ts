@@ -124,7 +124,7 @@ export class MissionService {
       case 'RECEIPT':
         // 1. OCR (GPT API 또는 외부 OCR API)
         const ocrText = await callOcrApi(file);
-        feedback = `영수증에서 '${ocrText}'를 확인했습니다. (상호명을 확인하고) 갔다오셨군요!`;
+        feedback = `영수증에서 '${ocrText}'를 확인했습니다. '${ocrText}' 갔다오셨군요!`;
         verificationData = { ocrText };
         break;
       case 'GPS':
