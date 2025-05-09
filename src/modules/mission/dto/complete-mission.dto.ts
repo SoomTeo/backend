@@ -1,4 +1,10 @@
-import { IsOptional, IsArray, ValidateNested, IsNumber } from 'class-validator';
+import {
+  IsOptional,
+  IsArray,
+  ValidateNested,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 class GpsPoint {
@@ -22,6 +28,14 @@ export class CompleteMissionDto {
   @ValidateNested({ each: true })
   @Type(() => GpsPoint)
   path?: GpsPoint[];
+
+  @IsOptional() // VOICE: 음성 인식 관련
+  @IsString()
+  targetText?: string;
+
+  @IsOptional()
+  @IsString()
+  recognizedText?: string;
 
   @IsOptional() // DIARY: 일기 텍스트
   diaryText?: string;

@@ -11,7 +11,11 @@ import { makeMissionPrompt } from './prompt.util';
 import { createChatCompletion } from '@src/common/utils/openai'; // GPT 유틸
 import { MissionType } from '@prisma/client';
 import { CompleteMissionDto } from './dto/complete-mission.dto';
-import { callOcrApi, callGptDiaryFeedback } from './utils/mission.utils';
+import {
+  callOcrApi,
+  callGptDiaryFeedback,
+  compareVoiceRecognition,
+} from './utils/mission.utils';
 
 // 하버사인 거리 계산 함수
 function haversine(
@@ -174,11 +178,27 @@ export class MissionService {
         feedback = `총 ${distance.toFixed(2)}km, ${duration.toFixed(0)}분 산책 성공!`;
         verificationData = { path, distance, duration };
         break;
+      case 'VOICE':
+        // 3. 음성 인식 결과 비교
+        const { targetText, recognizedText } = dto;
+        const voiceResult = compareVoiceRecognition(targetText, recognizedText);
+
+        if (!voiceResult.isSuccess) {
+          throw new ForbiddenException(voiceResult.feedback);
+        }
+
+        feedback = voiceResult.feedback;
+        verificationData = {
+          targetText,
+          recognizedText,
+          similarity: voiceResult.similarity,
+        };
+        break;
       case 'BUTTON':
         feedback = '좋은 글귀를 잘 읽으셨군요!';
         break;
       case 'DIARY':
-        // 3. GPT로 일기 피드백
+        // 4. GPT로 일기 피드백
         feedback = await callGptDiaryFeedback(dto.diaryText);
         verificationData = { diaryText: dto.diaryText };
         break;
