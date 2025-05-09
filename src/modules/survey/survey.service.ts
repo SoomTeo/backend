@@ -7,15 +7,28 @@ export class SurveyService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getQuestions() {
-    return this.prisma.surveyQuestion.findMany({ orderBy: { order: 'asc' } });
+    const questions = await this.prisma.surveyQuestion.findMany({
+      orderBy: { order: 'asc' },
+    });
+    return questions.map(question => ({
+      questionId: question.id,
+      order: question.order,
+      content: question.content,
+    }));
   }
 
   async saveProfile(userId: number, age: number, gender: string) {
     // age, gender가 UserUpdateInput에 없다는 에러가 발생하면 prisma generate를 먼저 실행하세요.
-    return this.prisma.user.update({
+    const user = await this.prisma.user.update({
       where: { id: userId },
       data: { age, gender },
     });
+    return {
+      message: '프로필 저장 성공',
+      userId: user.id,
+      age: user.age,
+      gender: user.gender,
+    };
   }
 
   async submitAnswers(userId: number, dto: SubmitSurveyDto) {
