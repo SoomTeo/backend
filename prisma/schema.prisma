@@ -33,7 +33,7 @@ model User {
 model Mission {
   id               Int                 @id @default(autoincrement())
   title            String
-  description      String
+  description      String              @db.Text
   type             MissionType
   verificationType String
   verificationData Json
