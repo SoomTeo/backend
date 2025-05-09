@@ -115,9 +115,9 @@ export class UserService {
         date: d.date,
         progress: d.progress,
       })),
-      dailyLast3Avg,
+      dailyLast3Avg: parseInt(dailyLast3Avg.toFixed(0)),
       weeklyTrends,
-      weeklyLast3Avg,
+      weeklyLast3Avg: parseInt(weeklyLast3Avg.toFixed(0)),
     };
   }
 }

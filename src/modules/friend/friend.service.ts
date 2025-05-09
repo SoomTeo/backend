@@ -82,22 +82,85 @@ export class FriendService {
     }
   }
 
-  // 4. 친구의 메인페이지
   async getFriendMainPage(friendId: number) {
+    // 1. 유저 기본 정보
     const user = await this.prisma.user.findUnique({
       where: { id: friendId },
       select: { nickname: true, age: true, gender: true },
     });
-    const recentMissions = await this.prisma.missionCompletion.findMany({
-      where: { userId: friendId, status: 'VERIFIED' },
-      orderBy: { completedAt: 'desc' },
-      take: 5,
-      include: { mission: true },
+
+    // 2. 오늘 점수/목표점수
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayProgress = await this.prisma.dailyWeeklyProgress.findFirst({
+      where: {
+        userId: friendId,
+        type: 'daily',
+        date: { gte: today },
+      },
+      orderBy: { date: 'desc' },
     });
-    const surveyResult = await this.prisma.surveyResult.findUnique({
-      where: { userId: friendId },
+
+    // 3. 최근 9일간 일간 추세
+    const nineDaysAgo = new Date();
+    nineDaysAgo.setDate(nineDaysAgo.getDate() - 8);
+    nineDaysAgo.setHours(0, 0, 0, 0);
+    const dailyTrends = await this.prisma.dailyWeeklyProgress.findMany({
+      where: {
+        userId: friendId,
+        type: 'daily',
+        date: { gte: nineDaysAgo },
+      },
+      orderBy: { date: 'asc' },
+      select: { date: true, progress: true },
     });
-    return { user, recentMissions, surveyResult };
+    const last3 = dailyTrends.slice(-3);
+    const dailyLast3Avg = last3.length
+      ? last3.reduce((sum, d) => sum + d.progress, 0) / last3.length
+      : 0;
+
+    // 4. 최근 9주간 주간 추세
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - dayOfWeek - 7 * 8); // 8주 전 월요일
+    const weeklyProgress = await this.prisma.dailyWeeklyProgress.findMany({
+      where: {
+        userId: friendId,
+        type: 'daily',
+        date: { gte: monday },
+      },
+      orderBy: { date: 'asc' },
+      select: { date: true, progress: true },
+    });
+    const weekMap: { [week: string]: number } = {};
+    weeklyProgress.forEach(d => {
+      const week = getYearWeek(d.date);
+      weekMap[week] = (weekMap[week] || 0) + d.progress;
+    });
+    const weeklyTrends = Object.entries(weekMap)
+      .map(([week, progress]) => ({ week, progress }))
+      .slice(-9);
+    const last3Weeks = weeklyTrends.slice(-3);
+    const weeklyLast3Avg = last3Weeks.length
+      ? last3Weeks.reduce((sum, d) => sum + d.progress, 0) / last3Weeks.length
+      : 0;
+
+    // 7. 응답
+    return {
+      user,
+      today: {
+        progress: todayProgress?.progress ?? 0,
+        targetPoints: todayProgress?.targetPoints ?? 0,
+      },
+      dailyTrends: dailyTrends.map(d => ({
+        date: d.date,
+        progress: d.progress,
+      })),
+      dailyLast3Avg: parseInt(dailyLast3Avg.toFixed(0)),
+      weeklyTrends,
+      weeklyLast3Avg: parseInt(weeklyLast3Avg.toFixed(0)),
+    };
   }
 
   // 5. 내 친구 목록
@@ -125,4 +188,14 @@ export class FriendService {
       status: r.status,
     }));
   }
+}
+
+// 주차 계산 함수
+function getYearWeek(date: Date) {
+  const d = new Date(date);
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+  const yearStart = new Date(d.getFullYear(), 0, 1);
+  const weekNo = Math.ceil(((+d - +yearStart) / 86400000 + 1) / 7);
+  return `${d.getFullYear()}-W${weekNo}`;
 }
