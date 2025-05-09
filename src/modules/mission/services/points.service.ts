@@ -7,6 +7,11 @@ import {
 } from '../constants/mission.constants';
 import { MissionType } from '@prisma/client';
 
+const LEVEL_MAP = {
+  low: 'LOW',
+  mid: 'MEDIUM',
+  high: 'HIGH',
+} as const;
 @Injectable()
 export class PointsService {
   constructor(private readonly prisma: PrismaService) {}
@@ -31,7 +36,7 @@ export class PointsService {
     if (!lastTarget) {
       // 첫 목표 점수 설정
       const levelKey =
-        user.surveyResults.level.toUpperCase() as keyof typeof INITIAL_TARGET_POINTS;
+        LEVEL_MAP[user.surveyResults.level as keyof typeof LEVEL_MAP];
       const initialPoints = INITIAL_TARGET_POINTS[levelKey];
       if (initialPoints === undefined) {
         throw new Error(
