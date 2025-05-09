@@ -16,7 +16,7 @@ export async function callOcrApi(file: Express.Multer.File): Promise<string> {
 
     // GPT Vision API 호출
     const response = await openai.chat.completions.create({
-      model: 'gpt-4-vision-preview',
+      model: 'gpt-4o',
       messages: [
         {
           role: 'user',
@@ -37,9 +37,13 @@ export async function callOcrApi(file: Express.Multer.File): Promise<string> {
       max_tokens: 300,
     });
 
-    // 응답 파싱
-    const result = response.choices[0].message.content;
-    const parsedResult = JSON.parse(result);
+    // 코드블록, 주석 등 제거
+    const content = response.choices[0].message.content
+      .replace(/```json|```/g, '')
+      .replace(/\/\/.*$/gm, '')
+      .trim();
+
+    const parsedResult = JSON.parse(content);
 
     return `${parsedResult.storeName} (${parsedResult.date})`;
   } catch (error) {

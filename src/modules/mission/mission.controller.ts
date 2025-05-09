@@ -48,7 +48,6 @@ export class MissionController {
     @Body() dto: CompleteMissionDto,
     @UploadedFile() file?: Express.Multer.File
   ) {
-    console.log('file:', file);
     return this.missionService.completeMission(
       req.user.userId,
       Number(id),

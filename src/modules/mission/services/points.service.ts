@@ -30,10 +30,14 @@ export class PointsService {
 
     if (!lastTarget) {
       // 첫 목표 점수 설정
-      const initialPoints =
-        INITIAL_TARGET_POINTS[
-          user.surveyResults[0].level as keyof typeof INITIAL_TARGET_POINTS
-        ];
+      const levelKey =
+        user.surveyResults.level.toUpperCase() as keyof typeof INITIAL_TARGET_POINTS;
+      const initialPoints = INITIAL_TARGET_POINTS[levelKey];
+      if (initialPoints === undefined) {
+        throw new Error(
+          `설문 결과 레벨(${user.surveyResults.level})이 올바르지 않습니다.`
+        );
+      }
       await this.prisma.dailyWeeklyProgress.create({
         data: {
           userId,

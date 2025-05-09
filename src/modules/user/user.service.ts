@@ -23,4 +23,16 @@ export class UserService {
   async findById(id: number): Promise<User | null> {
     return this.prisma.user.findUnique({ where: { id } });
   }
+
+  async getProfile(userId: number): Promise<any> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: { surveyResults: true },
+    });
+    return {
+      userId: user.id,
+      email: user.email,
+      level: user.surveyResults ? user.surveyResults.level : null,
+    };
+  }
 }

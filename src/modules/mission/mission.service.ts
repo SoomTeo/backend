@@ -137,7 +137,6 @@ export class MissionService {
       where: { id: missionId },
     });
     if (!mission) throw new NotFoundException('미션 없음');
-
     // 이미 완료했는지 체크
     const exist = await this.prisma.missionCompletion.findFirst({
       where: { userId, missionId },
@@ -149,10 +148,9 @@ export class MissionService {
 
     switch (mission.type) {
       case 'RECEIPT':
-        // 1. OCR (GPT API 또는 외부 OCR API)
-         if (!file || !file.path) {
-           throw new BadRequestException('영수증 이미지 파일이 필요합니다.');
-         }
+        // if (!file || !file.path) {
+        //   throw new BadRequestException('영수증 이미지 파일이 필요합니다.');
+        // }
         const ocrText = await callOcrApi(file);
         feedback = `영수증에서 '${ocrText}'를 확인했습니다. '${ocrText}' 갔다오셨군요!`;
         verificationData = { ocrText };
