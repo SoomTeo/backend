@@ -35,11 +35,17 @@ export class FriendService {
 
     const result = await this.prisma.friendRequest.create({
       data: { fromUserId, toUserId, status: 'REQUESTED' },
+      include: {
+        fromUser: true,
+        toUser: true,
+      },
     });
     return {
       requestId: result.id,
       fromUserId: result.fromUserId,
+      fromUserNickname: result.fromUser.nickname,
       toUserId: result.toUserId,
+      toUserNickname: result.toUser.nickname,
       status: result.status,
       createdAt: result.createdAt,
     };
