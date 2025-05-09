@@ -152,7 +152,7 @@ export class MissionService {
         //   throw new BadRequestException('영수증 이미지 파일이 필요합니다.');
         // }
         const ocrText = await callOcrApi(file);
-        feedback = `영수증에서 '${ocrText}'를 확인했습니다. '${ocrText}' 갔다오셨군요!`;
+        feedback = `영수증에서 '${ocrText}'를 확인했습니다!`;
         verificationData = { ocrText };
         break;
       case 'GPS':
@@ -175,12 +175,12 @@ export class MissionService {
             '발음이 정확하지 않습니다. 다시 시도해주세요.'
           );
         }
-        const { targetText, recognizedText } = dto;
+        //const { targetText, recognizedText } = dto;
         feedback = '발음을 정확하게 따라하셨네요!';
-        verificationData = {
-          targetText,
-          recognizedText,
-        };
+        // verificationData = {
+        //   targetText,
+        //   recognizedText,
+        // };
         break;
       case 'BUTTON':
         if (!dto.isSuccess) {
