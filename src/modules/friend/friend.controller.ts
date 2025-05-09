@@ -36,4 +36,9 @@ export class FriendController {
   async getFriendMainPage(@Param('id') id: number) {
     return this.friendService.getFriendMainPage(Number(id));
   }
+
+  @Get()
+  async getMyFriends(@Req() req) {
+    return this.friendService.getMyFriends(req.user.userId);
+  }
 }

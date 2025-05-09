@@ -54,13 +54,18 @@ export class FriendService {
         where: { id: requestId },
         data: { status: 'ACCEPTED' },
       });
+      return {
+        message: '친구 요청 수락',
+      };
     } else {
       await this.prisma.friendRequest.update({
         where: { id: requestId },
         data: { status: 'REJECTED' },
       });
+      return {
+        message: '친구 요청 거절',
+      };
     }
-    return { success: true };
   }
 
   // 4. 친구의 메인페이지
@@ -79,5 +84,16 @@ export class FriendService {
       where: { userId: friendId },
     });
     return { user, recentMissions, surveyResult };
+  }
+
+  // 5. 내 친구 목록
+  async getMyFriends(userId: number) {
+    const friends = await this.prisma.friend.findMany({
+      where: { userId },
+    });
+    return this.prisma.user.findMany({
+      where: { id: { in: friends.map(f => f.friendId) } },
+      select: { id: true, nickname: true },
+    });
   }
 }
