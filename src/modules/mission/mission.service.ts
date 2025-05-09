@@ -31,7 +31,13 @@ export class MissionService {
 
   // 미션이 0개면 타입별로 하나씩 자동 생성
   public async ensureUserHasMissions(userId: number) {
-    const remaining = await this.prisma.mission.count({ where: { userId } });
+    // 미완료 미션만 카운트
+    const remaining = await this.prisma.mission.count({
+      where: {
+        userId,
+        completions: { none: { userId } }, // 이 유저가 완료하지 않은 미션만 카운트
+      },
+    });
     if (remaining === 0) {
       const ALL_MISSION_TYPES: MissionType[] = [
         'RECEIPT',
