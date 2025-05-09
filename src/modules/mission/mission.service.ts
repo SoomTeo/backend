@@ -11,46 +11,15 @@ import { makeMissionPrompt } from './prompt.util';
 import { createChatCompletion } from '@src/common/utils/openai'; // GPT 유틸
 import { MissionType } from '@prisma/client';
 import { CompleteMissionDto } from './dto/complete-mission.dto';
-import {
-  callOcrApi,
-  callGptDiaryFeedback,
-  compareVoiceRecognition,
-} from './utils/mission.utils';
-
-// 하버사인 거리 계산 함수
-function haversine(
-  lat1: number,
-  lng1: number,
-  lat2: number,
-  lng2: number
-): number {
-  const toRad = (x: number) => (x * Math.PI) / 180;
-  const R = 6371; // km
-  const dLat = toRad(lat2 - lat1);
-  const dLng = toRad(lng2 - lng1);
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(a));
-}
-
-// 경로의 총 거리 계산
-function calcTotalDistance(path: { lat: number; lng: number }[]): number {
-  let dist = 0;
-  for (let i = 1; i < path.length; i++) {
-    dist += haversine(
-      path[i - 1].lat,
-      path[i - 1].lng,
-      path[i].lat,
-      path[i].lng
-    );
-  }
-  return dist;
-}
+import { callOcrApi, callGptDiaryFeedback } from './utils/mission.utils';
+import { PointsService } from './services/points.service';
 
 @Injectable()
 export class MissionService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly pointsService: PointsService
+  ) {}
 
   async getAllMissions(userId: number) {
     // 사용자가 완료한 미션 정보도 함께 반환
@@ -154,44 +123,35 @@ export class MissionService {
     switch (mission.type) {
       case 'RECEIPT':
         // 1. OCR (GPT API 또는 외부 OCR API)
-        const ocrText = await callOcrApi(file); // 이미지에서 텍스트 추출 (상호명, 날짜)
+        const ocrText = await callOcrApi(file);
         feedback = `영수증에서 '${ocrText}'를 확인했습니다. (상호명을 확인하고) 갔다오셨군요!`;
         verificationData = { ocrText };
         break;
       case 'GPS':
-        // 2. 경로 기반 거리/시간 계산
+        // 2. GPS 미션 (클라이언트에서 성공 여부 판단)
+        if (!dto.isSuccess) {
+          throw new ForbiddenException('미션 조건을 충족하지 못했습니다.');
+        }
         const { startTime, endTime, path } = dto;
-        const distance = calcTotalDistance(path); // km
         const duration =
           (new Date(endTime).getTime() - new Date(startTime).getTime()) /
           1000 /
-          60; // 분
-
-        // 예시: 30분에 2km 이상 이동해야 성공
-        const minDistance = 2; // km
-        const minDuration = 30; // 분
-
-        if (distance < minDistance || duration < minDuration) {
-          throw new ForbiddenException('이동 거리/시간이 부족합니다.');
-        }
-
-        feedback = `총 ${distance.toFixed(2)}km, ${duration.toFixed(0)}분 산책 성공!`;
-        verificationData = { path, distance, duration };
+          60;
+        feedback = `총 ${duration.toFixed(0)}분 산책 성공!`;
+        verificationData = { path, duration };
         break;
       case 'VOICE':
-        // 3. 음성 인식 결과 비교
-        const { targetText, recognizedText } = dto;
-        const voiceResult = compareVoiceRecognition(targetText, recognizedText);
-
-        if (!voiceResult.isSuccess) {
-          throw new ForbiddenException(voiceResult.feedback);
+        // 3. 음성 인식 미션 (클라이언트에서 성공 여부 판단)
+        if (!dto.isSuccess) {
+          throw new ForbiddenException(
+            '발음이 정확하지 않습니다. 다시 시도해주세요.'
+          );
         }
-
-        feedback = voiceResult.feedback;
+        const { targetText, recognizedText } = dto;
+        feedback = '발음을 정확하게 따라하셨네요!';
         verificationData = {
           targetText,
           recognizedText,
-          similarity: voiceResult.similarity,
         };
         break;
       case 'BUTTON':
@@ -206,7 +166,8 @@ export class MissionService {
         throw new BadRequestException('지원하지 않는 미션 타입');
     }
 
-    return this.prisma.missionCompletion.create({
+    // 미션 완료 기록 생성
+    const completion = await this.prisma.missionCompletion.create({
       data: {
         userId,
         missionId,
@@ -215,5 +176,22 @@ export class MissionService {
         feedback,
       },
     });
+
+    // 점수 추가 및 목표 달성 체크
+    const points = this.pointsService.getMissionPoints(
+      mission.type as MissionType
+    );
+    const achievementResult =
+      await this.pointsService.addPointsAndCheckAchievement(
+        userId,
+        mission.type as MissionType,
+        points
+      );
+
+    return {
+      ...completion,
+      points,
+      achievementResult,
+    };
   }
 }

@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { MissionController } from './mission.controller';
 import { MissionService } from './mission.service';
-import { PrismaModule } from '@src/shared/prisma/prisma.module';
+import { PrismaService } from '@src/shared/prisma/prisma.service';
+import { PointsService } from './services/points.service';
 
 @Module({
-  imports: [PrismaModule],
   controllers: [MissionController],
-  providers: [MissionService],
+  providers: [MissionService, PrismaService, PointsService],
+  exports: [MissionService],
 })
 export class MissionModule {}

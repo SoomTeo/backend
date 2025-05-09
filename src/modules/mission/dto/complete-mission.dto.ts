@@ -4,6 +4,7 @@ import {
   ValidateNested,
   IsNumber,
   IsString,
+  IsBoolean,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -39,4 +40,8 @@ export class CompleteMissionDto {
 
   @IsOptional() // DIARY: 일기 텍스트
   diaryText?: string;
+
+  @IsOptional() // GPS, VOICE: 클라이언트에서 판단한 성공 여부
+  @IsBoolean()
+  isSuccess?: boolean;
 }
